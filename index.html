@@ -10,6 +10,7 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
+            transition: background-color 0.5s ease;
         }
 
         header {
@@ -17,6 +18,7 @@
             color: #fff;
             text-align: center;
             padding: 1em 0;
+            transition: background-color 0.5s ease;
         }
 
         nav {
@@ -24,12 +26,18 @@
             color: #fff;
             padding: 1em 0;
             text-align: center;
+            transition: background-color 0.5s ease;
         }
 
         nav a {
             color: #fff;
             text-decoration: none;
             margin: 0 1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ffcc00;
         }
 
         main {
@@ -37,6 +45,13 @@
             max-width: 960px;
             margin: 20px auto;
             background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        main:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         footer {
@@ -47,31 +62,93 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+            transition: background-color 0.5s ease;
+        }
+
+        #translate-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>我的个人网站</h1>
+        <h1 id="title">我的个人网站</h1>
     </header>
 
     <nav>
-        <a href="#">首页</a>
-        <a href="#">关于我</a>
-        <a href="#">作品集</a>
-        <a href="#">联系我</a>
+        <a href="#" id="home">首页</a>
+        <a href="#" id="about">关于我</a>
+        <a href="#" id="portfolio">作品集</a>
+        <a href="#" id="contact">联系我</a>
     </nav>
 
     <main>
-        <h2>欢迎来到我的个人网站</h2>
-        <p>这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
-        <p>您可以在这里展示您的个人信息、作品集、技能等等。</p>
+        <h2 id="welcome">欢迎来到我的个人网站</h2>
+        <p id="intro">这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
+        <p id="content">您可以在这里展示您的个人信息、作品集、技能等等。</p>
     </main>
 
     <footer>
         <p>© 2023 我的个人网站</p>
     </footer>
+
+    <button id="translate-button">English</button>
+
+    <script>
+        const translateButton = document.getElementById('translate-button');
+        const title = document.getElementById('title');
+        const home = document.getElementById('home');
+        const about = document.getElementById('about');
+        const portfolio = document.getElementById('portfolio');
+        const contact = document.getElementById('contact');
+        const welcome = document.getElementById('welcome');
+        const intro = document.getElementById('intro');
+        const content = document.getElementById('content');
+
+        let isEnglish = false;
+
+        translateButton.addEventListener('click', () => {
+            if (isEnglish) {
+                translateButton.textContent = 'English';
+                title.textContent = '我的个人网站';
+                home.textContent = '首页';
+                about.textContent = '关于我';
+                portfolio.textContent = '作品集';
+                contact.textContent = '联系我';
+                welcome.textContent = '欢迎来到我的个人网站';
+                intro.textContent = '这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。';
+                content.textContent = '您可以在这里展示您的个人信息、作品集、技能等等。';
+                document.body.style.backgroundColor = '#f4f4f4';
+                document.querySelector('header').style.backgroundColor = '#333';
+                document.querySelector('nav').style.backgroundColor = '#444';
+                document.querySelector('footer').style.backgroundColor = '#333';
+            } else {
+                translateButton.textContent = '中文';
+                title.textContent = 'My Personal Website';
+                home.textContent = 'Home';
+                about.textContent = 'About Me';
+                portfolio.textContent = 'Portfolio';
+                contact.textContent = 'Contact';
+                welcome.textContent = 'Welcome to My Personal Website';
+                intro.textContent = 'This is a simple personal website template that you can modify and improve according to your needs.';
+                content.textContent = 'You can showcase your personal information, portfolio, skills, and more here.';
+                document.body.style.backgroundColor = '#e9e9e9';
+                document.querySelector('header').style.backgroundColor = '#444';
+                document.querySelector('nav').style.backgroundColor = '#555';
+                document.querySelector('footer').style.backgroundColor = '#444';
+            }
+            isEnglish = !isEnglish;
+        });
+    </script>
 
 </body>
 </html>
