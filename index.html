@@ -13,6 +13,10 @@
             color: #fff;
             opacity: 0;
             animation: fadeIn 1.5s ease-in-out forwards;
+            background-image: url('night.jpg'); /* 初始为夜晚模式背景图 */
+            background-size: cover;
+            background-position: center;
+            transition: background-image 1s ease-in-out, color 0.5s ease-in-out;
         }
 
         @keyframes fadeIn {
@@ -21,7 +25,7 @@
         }
 
         header {
-            background-color: #000;
+            background-color: rgba(0, 0, 0, 0.7);
             color: rgba(255, 255, 255, 0.7);
             text-align: center;
             padding: 1em 0;
@@ -34,7 +38,7 @@
         }
 
         nav {
-            background-color: #222;
+            background-color: rgba(34, 34, 34, 0.8);
             color: #fff;
             padding: 1em 0;
             text-align: center;
@@ -56,7 +60,7 @@
             padding: 20px;
             max-width: 960px;
             margin: 20px auto;
-            background-color: #333;
+            background-color: rgba(51, 51, 51, 0.8);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             animation: fadeInUp 1s ease-in-out forwards;
         }
@@ -69,17 +73,32 @@
         .content-wrapper {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         .content-wrapper.active {
             display: block;
             opacity: 1;
+            transform: translateY(0);
         }
 
         .content-wrapper h2, .content-wrapper p {
             transition: transform 0.3s ease, color 0.3s ease;
             color: #fff;
+            transform: translateY(10px);
+            opacity: 0;
+            animation: floatText 1s ease forwards;
+            animation-delay: 0.5s;
+        }
+
+        .content-wrapper.active h2, .content-wrapper.active p {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes floatText {
+            0% { transform: translateY(10px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
         .content-wrapper h2:hover, .content-wrapper p:hover {
@@ -106,7 +125,7 @@
         }
 
         footer {
-            background-color: #222;
+            background-color: rgba(34, 34, 34, 0.8);
             color: #fff;
             text-align: center;
             padding: 1em 0;
@@ -149,18 +168,18 @@
         body.light-mode {
             background-color: #fff;
             color: #000;
-            transition: background-color 0.5s ease, color 0.5s ease;
+            background-image: url('day.jpg'); /* 切换为白天模式背景图 */
         }
 
         body.light-mode header,
         body.light-mode nav,
         body.light-mode footer {
-            background-color: #f4f4f4;
+            background-color: rgba(255, 255, 255, 0.7);
             color: #000;
         }
 
         body.light-mode main {
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.8);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
@@ -264,6 +283,11 @@
             });
         }
 
+        // 切换夜间和白天模式
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+        }
+
         // 检查是否启用了广告拦截器
         window.onload = function() {
             const adblockStatus = document.getElementById('adblock-status');
@@ -278,11 +302,6 @@
             };
 
             document.body.appendChild(adScript);
-        }
-
-        // 切换夜间/白天模式
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
         }
     </script>
 
