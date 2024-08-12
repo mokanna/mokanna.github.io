@@ -10,7 +10,6 @@
             margin: 0;
             padding: 0;
             background-color: #f4f4f4;
-            transition: background-color 0.5s ease;
         }
 
         header {
@@ -18,7 +17,6 @@
             color: #fff;
             text-align: center;
             padding: 1em 0;
-            transition: background-color 0.5s ease;
         }
 
         nav {
@@ -26,7 +24,6 @@
             color: #fff;
             padding: 1em 0;
             text-align: center;
-            transition: background-color 0.5s ease;
         }
 
         nav a {
@@ -46,12 +43,21 @@
             margin: 20px auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* 为翻页动画添加定位 */
+            overflow: hidden; /* 隐藏溢出内容 */
         }
 
-        main:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        .content-wrapper {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease; /* 添加过渡效果 */
+        }
+
+        .content-wrapper.flipped {
+            transform: rotateY(180deg); /* 翻转 180 度 */
         }
 
         footer {
@@ -62,7 +68,6 @@
             position: fixed;
             bottom: 0;
             width: 100%;
-            transition: background-color 0.5s ease;
         }
 
         #translate-button {
@@ -92,9 +97,17 @@
     </nav>
 
     <main>
-        <h2 id="welcome">欢迎来到我的个人网站</h2>
-        <p id="intro">这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
-        <p id="content">您可以在这里展示您的个人信息、作品集、技能等等。</p>
+        <div class="content-wrapper" id="content-wrapper-zh">
+            <h2 id="welcome-zh">欢迎来到我的个人网站</h2>
+            <p id="intro-zh">这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
+            <p id="content-zh">您可以在这里展示您的个人信息、作品集、技能等等。</p>
+        </div>
+
+        <div class="content-wrapper flipped" id="content-wrapper-en">
+            <h2 id="welcome-en">Welcome to My Personal Website</h2>
+            <p id="intro-en">This is a simple personal website template that you can modify and improve according to your needs.</p>
+            <p id="content-en">You can showcase your personal information, portfolio, skills, and more here.</p>
+        </div>
     </main>
 
     <footer>
@@ -105,46 +118,20 @@
 
     <script>
         const translateButton = document.getElementById('translate-button');
-        const title = document.getElementById('title');
-        const home = document.getElementById('home');
-        const about = document.getElementById('about');
-        const portfolio = document.getElementById('portfolio');
-        const contact = document.getElementById('contact');
-        const welcome = document.getElementById('welcome');
-        const intro = document.getElementById('intro');
-        const content = document.getElementById('content');
+        const contentWrapperZh = document.getElementById('content-wrapper-zh');
+        const contentWrapperEn = document.getElementById('content-wrapper-en');
 
         let isEnglish = false;
 
         translateButton.addEventListener('click', () => {
             if (isEnglish) {
                 translateButton.textContent = 'English';
-                title.textContent = '我的个人网站';
-                home.textContent = '首页';
-                about.textContent = '关于我';
-                portfolio.textContent = '作品集';
-                contact.textContent = '联系我';
-                welcome.textContent = '欢迎来到我的个人网站';
-                intro.textContent = '这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。';
-                content.textContent = '您可以在这里展示您的个人信息、作品集、技能等等。';
-                document.body.style.backgroundColor = '#f4f4f4';
-                document.querySelector('header').style.backgroundColor = '#333';
-                document.querySelector('nav').style.backgroundColor = '#444';
-                document.querySelector('footer').style.backgroundColor = '#333';
+                contentWrapperZh.classList.remove('flipped');
+                contentWrapperEn.classList.add('flipped');
             } else {
                 translateButton.textContent = '中文';
-                title.textContent = 'My Personal Website';
-                home.textContent = 'Home';
-                about.textContent = 'About Me';
-                portfolio.textContent = 'Portfolio';
-                contact.textContent = 'Contact';
-                welcome.textContent = 'Welcome to My Personal Website';
-                intro.textContent = 'This is a simple personal website template that you can modify and improve according to your needs.';
-                content.textContent = 'You can showcase your personal information, portfolio, skills, and more here.';
-                document.body.style.backgroundColor = '#e9e9e9';
-                document.querySelector('header').style.backgroundColor = '#444';
-                document.querySelector('nav').style.backgroundColor = '#555';
-                document.querySelector('footer').style.backgroundColor = '#444';
+                contentWrapperZh.classList.add('flipped');
+                contentWrapperEn.classList.remove('flipped');
             }
             isEnglish = !isEnglish;
         });
