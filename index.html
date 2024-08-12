@@ -43,8 +43,7 @@
             margin: 20px auto;
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* 为翻页动画添加定位 */
-            overflow: hidden; /* 隐藏溢出内容 */
+            position: relative;
         }
 
         .content-wrapper {
@@ -53,11 +52,14 @@
             left: 0;
             width: 100%;
             height: 100%;
-            transition: transform 0.5s ease; /* 添加过渡效果 */
+            transition: opacity 0.5s ease;
+            opacity: 0;
+            visibility: hidden;
         }
 
-        .content-wrapper.flipped {
-            transform: rotateY(180deg); /* 翻转 180 度 */
+        .content-wrapper.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         footer {
@@ -98,27 +100,27 @@
 
     <main id="main-content">
         <!-- 首页内容 -->
-        <div class="content-wrapper" id="home-content">
+        <div class="content-wrapper active" id="home-content">
             <h2>欢迎来到 Om Kanna 的个人网站</h2>
             <p>这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
         </div>
 
         <!-- 关于我内容 -->
-        <div class="content-wrapper flipped" id="about-content">
+        <div class="content-wrapper" id="about-content">
             <h2>关于我</h2>
             <p>我的名字是 Om Kanna，我是一名...</p>
             <!-- 添加更多关于您的信息 -->
         </div>
 
         <!-- 作品集内容 -->
-        <div class="content-wrapper flipped" id="portfolio-content">
+        <div class="content-wrapper" id="portfolio-content">
             <h2>作品集</h2>
             <p>我的作品集...</p>
             <!-- 添加您的作品集 -->
         </div>
 
         <!-- 联系我内容 -->
-        <div class="content-wrapper flipped" id="contact-content">
+        <div class="content-wrapper" id="contact-content">
             <h2>联系我</h2>
             <p>我的邮箱是...</p>
             <!-- 添加您的联系方式 -->
@@ -138,9 +140,9 @@
             contentWrappers.forEach(wrapper => {
                 // 如果当前元素的 ID 与 contentId 匹配，则显示该元素，否则隐藏
                 if (wrapper.id === `${contentId}-content`) {
-                    wrapper.classList.remove('flipped');
+                    wrapper.classList.add('active');
                 } else {
-                    wrapper.classList.add('flipped');
+                    wrapper.classList.remove('active');
                 }
             });
         }
