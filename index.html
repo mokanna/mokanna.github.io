@@ -9,40 +9,41 @@
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #000; /* 将背景改为纯黑 */
+            color: #d4af37; /* 文本颜色改为金色 */
         }
 
         header {
-            background-color: #333;
-            color: #fff;
+            background-color: #000; /* 标题背景改为黑色 */
+            color: rgba(212, 175, 55, 0.7); /* 标题改为半透明金色 */
             text-align: center;
             padding: 1em 0;
         }
 
         nav {
-            background-color: #444;
-            color: #fff;
+            background-color: #222; /* 导航背景改为深黑 */
+            color: #d4af37; /* 导航文字改为金色 */
             padding: 1em 0;
             text-align: center;
         }
 
         nav a {
-            color: #fff;
+            color: #d4af37; /* 链接颜色改为金色 */
             text-decoration: none;
             margin: 0 1em;
             transition: color 0.3s ease;
         }
 
         nav a:hover {
-            color: #ffcc00;
+            color: #ffcc00; /* 链接悬停改为亮金色 */
         }
 
         main {
             padding: 20px;
             max-width: 960px;
             margin: 20px auto;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #333; /* 主体内容背景改为深灰色 */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
         }
 
         .content-wrapper {
@@ -58,6 +59,7 @@
 
         .content-wrapper h2, .content-wrapper p {
             transition: transform 0.3s ease;
+            color: #d4af37; /* 内容文字颜色改为金色 */
         }
 
         .content-wrapper h2:hover, .content-wrapper p:hover {
@@ -65,8 +67,8 @@
         }
 
         footer {
-            background-color: #333;
-            color: #fff;
+            background-color: #222; /* 页脚背景改为深黑 */
+            color: #d4af37; /* 页脚文字颜色改为金色 */
             text-align: center;
             padding: 1em 0;
             position: fixed;
