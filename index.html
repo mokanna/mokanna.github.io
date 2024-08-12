@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,42 +11,41 @@
             padding: 0;
             background-color: #000;
             color: #fff;
-            opacity: 0;
-            animation: fadeIn 1.5s ease-in-out forwards;
-            background-image: url('night.jpg'); /* 初始为夜晚模式背景图 */
+            background-image: url('night.jpg');
             background-size: cover;
             background-position: center;
-            transition: background-image 1s ease-in-out, color 0.5s ease-in-out;
+            transition: background-image 0.5s ease, color 0.5s ease;
         }
 
-        @keyframes fadeIn {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
+        body.light-mode {
+            background-color: #fff;
+            color: #000;
+            background-image: url('day.jpg');
         }
 
         header {
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: #000;
             color: rgba(255, 255, 255, 0.7);
             text-align: center;
             padding: 1em 0;
-            animation: slideDown 1s ease-in-out forwards;
+            transition: color 0.5s ease;
         }
 
-        @keyframes slideDown {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(0); }
+        body.light-mode header {
+            background-color: #fff;
+            color: rgba(0, 0, 0, 0.7);
         }
 
         nav {
-            background-color: rgba(34, 34, 34, 0.8);
+            background-color: #222;
             color: #fff;
             padding: 1em 0;
             text-align: center;
-            animation: slideDown 1.2s ease-in-out forwards;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         nav a {
-            color: #fff;
+            color: inherit;
             text-decoration: none;
             margin: 0 1em;
             transition: color 0.3s ease;
@@ -60,45 +59,29 @@
             padding: 20px;
             max-width: 960px;
             margin: 20px auto;
-            background-color: rgba(51, 51, 51, 0.8);
+            background-color: #333;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            animation: fadeInUp 1s ease-in-out forwards;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        @keyframes fadeInUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        body.light-mode main {
+            background-color: #f4f4f4;
+            color: #000;
         }
 
         .content-wrapper {
             display: none;
             opacity: 0;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s ease;
         }
 
         .content-wrapper.active {
             display: block;
             opacity: 1;
-            transform: translateY(0);
         }
 
         .content-wrapper h2, .content-wrapper p {
             transition: transform 0.3s ease, color 0.3s ease;
-            color: #fff;
-            transform: translateY(10px);
-            opacity: 0;
-            animation: floatText 1s ease forwards;
-            animation-delay: 0.5s;
-        }
-
-        .content-wrapper.active h2, .content-wrapper.active p {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        @keyframes floatText {
-            0% { transform: translateY(10px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
         }
 
         .content-wrapper h2:hover, .content-wrapper p:hover {
@@ -112,7 +95,7 @@
         }
 
         .email-container a {
-            color: #fff;
+            color: inherit;
             text-decoration: none;
             font-size: 16px;
             display: flex;
@@ -125,14 +108,36 @@
         }
 
         footer {
-            background-color: rgba(34, 34, 34, 0.8);
+            background-color: #222;
             color: #fff;
             text-align: center;
             padding: 1em 0;
             position: fixed;
             bottom: 0;
             width: 100%;
-            animation: fadeIn 1.5s ease-in-out forwards;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.light-mode footer {
+            background-color: #f4f4f4;
+            color: #000;
+        }
+
+        #theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 10px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.light-mode #theme-toggle {
+            background-color: #ddd;
+            color: #000;
         }
 
         #adblock-status {
@@ -142,73 +147,12 @@
             font-size: 14px;
             color: #fff;
             background-color: #444;
-            animation: fadeIn 2s ease-in-out forwards;
-        }
-
-        /* 切换按钮样式 */
-        .toggle-theme {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            background-color: #444;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.3s, color 0.3s;
-            border-radius: 5px;
-        }
-
-        .toggle-theme:hover {
-            background-color: #fff;
-            color: #000;
-        }
-
-        /* 白天模式样式 */
-        body.light-mode {
-            background-color: #fff;
-            color: #000;
-            background-image: url('day.jpg'); /* 切换为白天模式背景图 */
-        }
-
-        body.light-mode header,
-        body.light-mode nav,
-        body.light-mode footer {
-            background-color: rgba(255, 255, 255, 0.7);
-            color: #000;
-        }
-
-        body.light-mode main {
-            background-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        body.light-mode nav a {
-            color: #000;
-        }
-
-        body.light-mode nav a:hover {
-            color: #ff6600;
-        }
-
-        body.light-mode .content-wrapper h2:hover,
-        body.light-mode .content-wrapper p:hover {
-            color: #ff6600;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         body.light-mode #adblock-status {
             background-color: #ddd;
             color: #000;
-        }
-
-        body.light-mode .toggle-theme {
-            background-color: #ddd;
-            color: #000;
-        }
-
-        body.light-mode .toggle-theme:hover {
-            background-color: #000;
-            color: #fff;
         }
     </style>
 </head>
@@ -218,20 +162,18 @@
         <h1 id="title">Om Kanna</h1>
     </header>
 
-    <button class="toggle-theme" onclick="toggleTheme()">切换模式</button>
-
     <nav>
-        <a href="#home" onclick="showContent('home')">首页</a>
-        <a href="#about" onclick="showContent('about')">关于我</a>
+        <a href="#home" onclick="showContent('home')">首頁</a>
+        <a href="#about" onclick="showContent('about')">關於我</a>
         <a href="#portfolio" onclick="showContent('portfolio')">作品集</a>
-        <a href="#contact" onclick="showContent('contact')">联系我</a>
+        <a href="#contact" onclick="showContent('contact')">聯繫我</a>
     </nav>
 
     <main id="main-content">
-        <!-- 首页内容 -->
+        <!-- 首頁內容 -->
         <div class="content-wrapper active" id="home-content">
-            <h2>欢迎来到 Om Kanna 的个人网站</h2>
-            <p>这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
+            <h2>歡迎來到 Om Kanna 的個人網站</h2>
+            <p>這是一個簡單的個人網站模板，您可以根據自己的需求進行修改和完善。</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
@@ -240,41 +182,40 @@
             </div>
         </div>
 
-        <!-- 关于我内容 -->
+        <!-- 關於我內容 -->
         <div class="content-wrapper" id="about-content">
-            <h2>关于我</h2>
+            <h2>關於我</h2>
             <p>我的名字是 Om Kanna，我是一名...</p>
-            <!-- 添加更多关于您的信息 -->
+            <!-- 添加更多關於您的信息 -->
         </div>
 
-        <!-- 作品集内容 -->
+        <!-- 作品集內容 -->
         <div class="content-wrapper" id="portfolio-content">
             <h2>作品集</h2>
             <p>我的作品集...</p>
             <!-- 添加您的作品集 -->
         </div>
 
-        <!-- 联系我内容 -->
+        <!-- 聯繫我內容 -->
         <div class="content-wrapper" id="contact-content">
-            <h2>联系我</h2>
-            <p>我的邮箱是...</p>
-            <!-- 添加您的联系方式 -->
+            <h2>聯繫我</h2>
+            <p>我的郵箱是...</p>
+            <!-- 添加您的聯繫方式 -->
         </div>
     </main>
 
     <footer>
         <p>© 2023 Om Kanna</p>
-        <div id="adblock-status">检测广告拦截状态中...</div>
+        <div id="adblock-status">檢測廣告攔截狀態中...</div>
     </footer>
+
+    <button id="theme-toggle" onclick="toggleTheme()">切換模式</button>
 
     <script>
         function showContent(contentId) {
-            // 获取所有 content-wrapper 元素
             const contentWrappers = document.querySelectorAll('.content-wrapper');
 
-            // 遍历所有 content-wrapper 元素
             contentWrappers.forEach(wrapper => {
-                // 如果当前元素的 ID 与 contentId 匹配，则显示该元素，否则隐藏
                 if (wrapper.id === `${contentId}-content`) {
                     wrapper.classList.add('active');
                 } else {
@@ -283,22 +224,20 @@
             });
         }
 
-        // 切换夜间和白天模式
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
         }
 
-        // 检查是否启用了广告拦截器
         window.onload = function() {
             const adblockStatus = document.getElementById('adblock-status');
             const adScript = document.createElement('script');
 
             adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
             adScript.onerror = function() {
-                adblockStatus.innerText = "您启用了广告拦截插件";
+                adblockStatus.innerText = "您啟用了廣告攔截插件";
             };
             adScript.onload = function() {
-                adblockStatus.innerText = "您未启用广告拦截插件";
+                adblockStatus.innerText = "您未啟用廣告攔截插件";
             };
 
             document.body.appendChild(adScript);
