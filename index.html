@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的个人网站</title>
+    <title>Om Kanna</title>
     <style>
         body {
             font-family: sans-serif;
@@ -86,55 +86,64 @@
 <body>
 
     <header>
-        <h1 id="title">我的个人网站</h1>
+        <h1 id="title">Om Kanna</h1>
     </header>
 
     <nav>
-        <a href="#" id="home">首页</a>
-        <a href="#" id="about">关于我</a>
-        <a href="#" id="portfolio">作品集</a>
-        <a href="#" id="contact">联系我</a>
+        <a href="#home" onclick="showContent('home')">首页</a>
+        <a href="#about" onclick="showContent('about')">关于我</a>
+        <a href="#portfolio" onclick="showContent('portfolio')">作品集</a>
+        <a href="#contact" onclick="showContent('contact')">联系我</a>
     </nav>
 
-    <main>
-        <div class="content-wrapper" id="content-wrapper-zh">
-            <h2 id="welcome-zh">欢迎来到我的个人网站</h2>
-            <p id="intro-zh">这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
-            <p id="content-zh">您可以在这里展示您的个人信息、作品集、技能等等。</p>
+    <main id="main-content">
+        <!-- 首页内容 -->
+        <div class="content-wrapper" id="home-content">
+            <h2>欢迎来到 Om Kanna 的个人网站</h2>
+            <p>这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
         </div>
 
-        <div class="content-wrapper flipped" id="content-wrapper-en">
-            <h2 id="welcome-en">Welcome to My Personal Website</h2>
-            <p id="intro-en">This is a simple personal website template that you can modify and improve according to your needs.</p>
-            <p id="content-en">You can showcase your personal information, portfolio, skills, and more here.</p>
+        <!-- 关于我内容 -->
+        <div class="content-wrapper flipped" id="about-content">
+            <h2>关于我</h2>
+            <p>我的名字是 Om Kanna，我是一名...</p>
+            <!-- 添加更多关于您的信息 -->
+        </div>
+
+        <!-- 作品集内容 -->
+        <div class="content-wrapper flipped" id="portfolio-content">
+            <h2>作品集</h2>
+            <p>我的作品集...</p>
+            <!-- 添加您的作品集 -->
+        </div>
+
+        <!-- 联系我内容 -->
+        <div class="content-wrapper flipped" id="contact-content">
+            <h2>联系我</h2>
+            <p>我的邮箱是...</p>
+            <!-- 添加您的联系方式 -->
         </div>
     </main>
 
     <footer>
-        <p>© 2023 我的个人网站</p>
+        <p>© 2023 Om Kanna</p>
     </footer>
 
-    <button id="translate-button">English</button>
-
     <script>
-        const translateButton = document.getElementById('translate-button');
-        const contentWrapperZh = document.getElementById('content-wrapper-zh');
-        const contentWrapperEn = document.getElementById('content-wrapper-en');
+        function showContent(contentId) {
+            // 获取所有 content-wrapper 元素
+            const contentWrappers = document.querySelectorAll('.content-wrapper');
 
-        let isEnglish = false;
-
-        translateButton.addEventListener('click', () => {
-            if (isEnglish) {
-                translateButton.textContent = 'English';
-                contentWrapperZh.classList.remove('flipped');
-                contentWrapperEn.classList.add('flipped');
-            } else {
-                translateButton.textContent = '中文';
-                contentWrapperZh.classList.add('flipped');
-                contentWrapperEn.classList.remove('flipped');
-            }
-            isEnglish = !isEnglish;
-        });
+            // 遍历所有 content-wrapper 元素
+            contentWrappers.forEach(wrapper => {
+                // 如果当前元素的 ID 与 contentId 匹配，则显示该元素，否则隐藏
+                if (wrapper.id === `${contentId}-content`) {
+                    wrapper.classList.remove('flipped');
+                } else {
+                    wrapper.classList.add('flipped');
+                }
+            });
+        }
     </script>
 
 </body>
