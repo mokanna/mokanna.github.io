@@ -15,6 +15,13 @@
             background-size: cover;
             background-position: center;
             transition: background-image 0.5s ease, color 0.5s ease;
+            opacity: 0;
+            animation: fadeIn 1.5s ease-in-out forwards;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         body.light-mode {
@@ -29,6 +36,12 @@
             text-align: center;
             padding: 1em 0;
             transition: color 0.5s ease;
+            animation: slideDown 1s ease-in-out forwards;
+        }
+
+        @keyframes slideDown {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(0); }
         }
 
         body.light-mode header {
@@ -42,6 +55,7 @@
             padding: 1em 0;
             text-align: center;
             transition: background-color 0.5s ease, color 0.5s ease;
+            animation: slideDown 1.2s ease-in-out forwards;
         }
 
         nav a {
@@ -62,6 +76,12 @@
             background-color: #333;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             transition: background-color 0.5s ease, color 0.5s ease;
+            animation: fadeInUp 1s ease-in-out forwards;
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
 
         body.light-mode main {
@@ -116,6 +136,7 @@
             bottom: 0;
             width: 100%;
             transition: background-color 0.5s ease, color 0.5s ease;
+            animation: fadeIn 1.5s ease-in-out forwards;
         }
 
         body.light-mode footer {
@@ -148,6 +169,7 @@
             color: #fff;
             background-color: #444;
             transition: background-color 0.5s ease, color 0.5s ease;
+            animation: fadeIn 2s ease-in-out forwards;
         }
 
         body.light-mode #adblock-status {
@@ -173,7 +195,7 @@
         <!-- 首頁內容 -->
         <div class="content-wrapper active" id="home-content">
             <h2>歡迎來到 Om Kanna 的個人網站</h2>
-            <p>這是一個簡單的個人網站模板，您可以根據自己的需求進行修改和完善。</p>
+            <p>感谢你进入这个网站</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
@@ -199,13 +221,13 @@
         <!-- 聯繫我內容 -->
         <div class="content-wrapper" id="contact-content">
             <h2>聯繫我</h2>
-            <p>我的郵箱是...</p>
+            <p>我的郵箱是ok8476980@gmail.com，你可以在首页打开链接</p>
             <!-- 添加您的聯繫方式 -->
         </div>
     </main>
 
     <footer>
-        <p>© 2023 Om Kanna</p>
+        <p>© 2024 Om Kanna</p>
         <div id="adblock-status">檢測廣告攔截狀態中...</div>
     </footer>
 
