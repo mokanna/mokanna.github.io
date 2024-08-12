@@ -87,6 +87,24 @@
             color: #ffcc00;
         }
 
+        .email-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .email-container a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .email-container img {
+            margin-right: 10px;
+        }
+
         footer {
             background-color: #222;
             color: #fff;
@@ -96,18 +114,6 @@
             bottom: 0;
             width: 100%;
             animation: fadeIn 1.5s ease-in-out forwards;
-        }
-
-        #translate-button {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            padding: 5px 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
         }
 
         #adblock-status {
@@ -139,6 +145,12 @@
         <div class="content-wrapper active" id="home-content">
             <h2>欢迎来到 Om Kanna 的个人网站</h2>
             <p>这是一个简单的个人网站模板，您可以根据自己的需求进行修改和完善。</p>
+            <div class="email-container">
+                <a href="mailto:ok8476980@gmail.com">
+                    <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
+                    ok8476980@gmail.com
+                </a>
+            </div>
         </div>
 
         <!-- 关于我内容 -->
@@ -186,18 +198,18 @@
 
         // 检查是否启用了广告拦截器
         window.onload = function() {
-            let adblockEnabled = false;
-            const ad = document.createElement('div');
-            ad.innerHTML = '&nbsp;';
-            ad.className = 'adsbox';
-            document.body.appendChild(ad);
-            window.setTimeout(function() {
-                if (ad.offsetHeight === 0) {
-                    adblockEnabled = true;
-                }
-                ad.remove();
-                document.getElementById('adblock-status').innerText = adblockEnabled ? "您启用了广告拦截插件" : "您未启用广告拦截插件";
-            }, 100);
+            const adblockStatus = document.getElementById('adblock-status');
+            const adScript = document.createElement('script');
+
+            adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+            adScript.onerror = function() {
+                adblockStatus.innerText = "您启用了广告拦截插件";
+            };
+            adScript.onload = function() {
+                adblockStatus.innerText = "您未启用广告拦截插件";
+            };
+
+            document.body.appendChild(adScript);
         }
     </script>
 
