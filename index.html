@@ -74,8 +74,8 @@
             max-width: 960px;
             margin: 20px auto;
             background-color: #333;
+            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            border-radius: 10px;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeInUp 1s ease-in-out forwards;
         }
@@ -155,6 +155,7 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.5s ease, color 0.5s ease;
+            border-radius: 5px;
         }
 
         body.light-mode #menu-toggle {
@@ -167,12 +168,11 @@
             position: fixed;
             top: 50px;
             right: 10px;
-            background-color: #333;
+            background-color: #444;
             color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            z-index: 1000;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: transform 0.5s ease, opacity 0.5s ease;
         }
 
         body.light-mode #menu {
@@ -180,23 +180,29 @@
             color: #000;
         }
 
-        #menu a {
+        #menu.show {
             display: block;
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        #menu button {
+            background: none;
+            border: none;
             color: inherit;
-            text-decoration: none;
-            margin: 5px 0;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
             cursor: pointer;
-            padding: 5px;
-            border-radius: 5px;
             transition: background-color 0.3s ease;
         }
 
-        #menu a:hover {
-            background-color: #555;
+        #menu button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
 
-        body.light-mode #menu a:hover {
-            background-color: #bbb;
+        body.light-mode #menu button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
         }
 
         #adblock-status {
@@ -230,9 +236,10 @@
     </nav>
 
     <main id="main-content">
+        <!-- Home Content -->
         <div class="content-wrapper active" id="home-content">
             <h2>Welcome to Om Kanna's personal website</h2>
-            <p>Thank you for visiting this site</p>
+            <p>Thank you for visiting the website</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
@@ -241,19 +248,22 @@
             </div>
         </div>
 
+        <!-- About Content -->
         <div class="content-wrapper" id="about-content">
             <h2>About Me</h2>
-            <p>My name is Om Kanna, and I am...</p>
+            <p>My name is Om Kanna, I am a...</p>
         </div>
 
+        <!-- Portfolio Content -->
         <div class="content-wrapper" id="portfolio-content">
             <h2>Portfolio</h2>
-            <p>My portfolio...</p>
+            <p>My portfolio includes...</p>
         </div>
 
+        <!-- Contact Content -->
         <div class="content-wrapper" id="contact-content">
             <h2>Contact Me</h2>
-            <p>You can contact me via email at ok8476980@gmail.com, or find the link on the home page</p>
+            <p>You can reach me at ok8476980@gmail.com, the link is available on the homepage</p>
         </div>
     </main>
 
@@ -263,42 +273,17 @@
     </footer>
 
     <button id="menu-toggle" onclick="toggleMenu()">Menu</button>
-
     <div id="menu">
-        <a onclick="toggleTheme()">Toggle Theme</a>
-        <a onclick="toggleLanguage()">Toggle Language</a>
+        <button onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="toggleLanguage()">Toggle Language</button>
+        <a href="https://www.tumblr.com/omkanna?source=share">Tumblr</a>
+        <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09">Twitter</a>
+      
     </div>
 
     <script>
-        let currentLanguage = "en";
         let isLightMode = false;
-
-        const translations = {
-            "en": {
-                "title": "Om Kanna",
-                "home": "Home",
-                "about": "About",
-                "portfolio": "Portfolio",
-                "contact": "Contact",
-                "welcome": "Welcome to Om Kanna's personal website",
-                "emailText": "Thank you for visiting this site",
-                "aboutText": "My name is Om Kanna, and I am...",
-                "portfolioText": "My portfolio...",
-                "contactText": "You can contact me via email at ok8476980@gmail.com, or find the link on the home page"
-            },
-            "zh-TW": {
-                "title": "Om Kanna",
-                "home": "首頁",
-                "about": "關於我",
-                "portfolio": "作品集",
-                "contact": "聯繫我",
-                "welcome": "歡迎來到 Om Kanna 的個人網站",
-                "emailText": "感谢你进入这个网站",
-                "aboutText": "我的名字是 Om Kanna，我是一名...",
-                "portfolioText": "我的作品集...",
-                "contactText": "我的郵箱是ok8476980@gmail.com，你可以在首页打开链接"
-            }
-        };
+        let isEnglish = true;
 
         function showContent(contentId) {
             const contentWrappers = document.querySelectorAll('.content-wrapper');
@@ -318,24 +303,22 @@
         }
 
         function toggleLanguage() {
-            currentLanguage = currentLanguage === "en" ? "zh-TW" : "en";
-            document.documentElement.lang = currentLanguage;
-
-            document.getElementById('title').innerText = translations[currentLanguage].title;
-            document.querySelector('nav a[href="#home"]').innerText = translations[currentLanguage].home;
-            document.querySelector('nav a[href="#about"]').innerText = translations[currentLanguage].about;
-            document.querySelector('nav a[href="#portfolio"]').innerText = translations[currentLanguage].portfolio;
-            document.querySelector('nav a[href="#contact"]').innerText = translations[currentLanguage].contact;
-            document.querySelector('#home-content h2').innerText = translations[currentLanguage].welcome;
-            document.querySelector('#home-content p').innerText = translations[currentLanguage].emailText;
-            document.querySelector('#about-content p').innerText = translations[currentLanguage].aboutText;
-            document.querySelector('#portfolio-content p').innerText = translations[currentLanguage].portfolioText;
-            document.querySelector('#contact-content p').innerText = translations[currentLanguage].contactText;
+            const elements = document.querySelectorAll('[lang="zh-TW"], [lang="en"]');
+            isEnglish = !isEnglish;
+            elements.forEach(el => {
+                if (isEnglish) {
+                    el.lang = "en";
+                    el.innerText = el.getAttribute("data-en");
+                } else {
+                    el.lang = "zh-TW";
+                    el.innerText = el.getAttribute("data-zh");
+                }
+            });
         }
 
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            menu.classList.toggle('show');
         }
 
         window.onload = function() {
@@ -347,7 +330,7 @@
                 adblockStatus.innerText = "Ad blocker is enabled";
             };
             adScript.onload = function() {
-                adblockStatus.innerText = "Ad blocker is not enabled";
+                adblockStatus.innerText = "No ad blocker detected";
             };
 
             document.body.appendChild(adScript);
