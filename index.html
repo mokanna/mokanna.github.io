@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-TW">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -56,7 +56,6 @@
             text-align: center;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: slideDown 1.2s ease-in-out forwards;
-            border-radius: 10px; /* 添加圆角 */
         }
 
         nav a {
@@ -76,9 +75,9 @@
             margin: 20px auto;
             background-color: #333;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            border-radius: 10px;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeInUp 1s ease-in-out forwards;
-            border-radius: 10px; /* 添加圆角 */
         }
 
         @keyframes fadeInUp {
@@ -95,7 +94,6 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s ease;
-            border-radius: 10px; /* 添加圆角 */
         }
 
         .content-wrapper.active {
@@ -147,7 +145,7 @@
             color: #000;
         }
 
-        #theme-language-toggle {
+        #menu-toggle {
             position: fixed;
             top: 10px;
             right: 10px;
@@ -157,12 +155,48 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.5s ease, color 0.5s ease;
-            border-radius: 10px; /* 添加圆角 */
         }
 
-        body.light-mode #theme-language-toggle {
+        body.light-mode #menu-toggle {
             background-color: #ddd;
             color: #000;
+        }
+
+        #menu {
+            display: none;
+            position: fixed;
+            top: 50px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            z-index: 1000;
+        }
+
+        body.light-mode #menu {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        #menu a {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            margin: 5px 0;
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #menu a:hover {
+            background-color: #555;
+        }
+
+        body.light-mode #menu a:hover {
+            background-color: #bbb;
         }
 
         #adblock-status {
@@ -174,7 +208,6 @@
             background-color: #444;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeIn 2s ease-in-out forwards;
-            border-radius: 10px; /* 添加圆角 */
         }
 
         body.light-mode #adblock-status {
@@ -190,17 +223,16 @@
     </header>
 
     <nav>
-        <a href="#home" onclick="showContent('home')">首頁</a>
-        <a href="#about" onclick="showContent('about')">關於我</a>
-        <a href="#portfolio" onclick="showContent('portfolio')">作品集</a>
-        <a href="#contact" onclick="showContent('contact')">聯繫我</a>
+        <a href="#home" onclick="showContent('home')">Home</a>
+        <a href="#about" onclick="showContent('about')">About</a>
+        <a href="#portfolio" onclick="showContent('portfolio')">Portfolio</a>
+        <a href="#contact" onclick="showContent('contact')">Contact</a>
     </nav>
 
     <main id="main-content">
-        <!-- 首頁內容 -->
         <div class="content-wrapper active" id="home-content">
-            <h2>歡迎來到 Om Kanna 的個人網站</h2>
-            <p>感谢你进入这个网站</p>
+            <h2>Welcome to Om Kanna's personal website</h2>
+            <p>Thank you for visiting this site</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
@@ -209,108 +241,118 @@
             </div>
         </div>
 
-        <!-- 關於我內容 -->
         <div class="content-wrapper" id="about-content">
-            <h2>關於我</h2>
-            <p>我的名字是 Om Kanna，我是一名...</p>
-            <!-- 添加更多關於您的信息 -->
+            <h2>About Me</h2>
+            <p>My name is Om Kanna, and I am...</p>
         </div>
 
-        <!-- 作品集內容 -->
         <div class="content-wrapper" id="portfolio-content">
-            <h2>作品集</h2>
-            <p>我的作品集...</p>
-            <!-- 添加您的作品集 -->
+            <h2>Portfolio</h2>
+            <p>My portfolio...</p>
         </div>
 
-        <!-- 聯繫我內容 -->
         <div class="content-wrapper" id="contact-content">
-            <h2>聯繫我</h2>
-            <p>我的郵箱是ok8476980@gmail.com，你可以在首页打开链接</p>
-            <!-- 添加您的聯繫方式 -->
+            <h2>Contact Me</h2>
+            <p>You can contact me via email at ok8476980@gmail.com, or find the link on the home page</p>
         </div>
     </main>
 
     <footer>
         <p>© 2024 Om Kanna</p>
-        <div id="adblock-status">檢測廣告攔截狀態中...</div>
+        <div id="adblock-status">Checking ad blocker status...</div>
     </footer>
 
-    <button id="theme-language-toggle" onclick="toggleThemeLanguage()">切換模式和語言</button>
+    <button id="menu-toggle" onclick="toggleMenu()">Menu</button>
+
+    <div id="menu">
+        <a onclick="toggleTheme()">Toggle Theme</a>
+        <a onclick="toggleLanguage()">Toggle Language</a>
+    </div>
 
     <script>
+        let currentLanguage = "en";
+        let isLightMode = false;
+
         const translations = {
-            "zh-TW": {
-                title: "Om Kanna",
-                home: "首頁",
-                about: "關於我",
-                portfolio: "作品集",
-                contact: "聯繫我",
-                welcome: "歡迎來到 Om Kanna 的個人網站",
-                emailText: "感谢你进入这个网站",
-                aboutText: "我的名字是 Om Kanna，我是一名...",
-                portfolioText: "我的作品集...",
-                contactText: "我的郵箱是ok8476980@gmail.com，你可以在首页打开链接"
-            },
             "en": {
-                title: "Om Kanna",
-                home: "Home",
-                about: "About Me",
-                portfolio: "Portfolio",
-                contact: "Contact Me",
-                welcome: "Welcome to Om Kanna's Personal Website",
-                emailText: "Thank you for visiting my website",
-                aboutText: "My name is Om Kanna, and I am a...",
-                portfolioText: "Here is my portfolio...",
-                contactText: "My email is ok8476980@gmail.com, you can open the link on the home page"
+                "title": "Om Kanna",
+                "home": "Home",
+                "about": "About",
+                "portfolio": "Portfolio",
+                "contact": "Contact",
+                "welcome": "Welcome to Om Kanna's personal website",
+                "emailText": "Thank you for visiting this site",
+                "aboutText": "My name is Om Kanna, and I am...",
+                "portfolioText": "My portfolio...",
+                "contactText": "You can contact me via email at ok8476980@gmail.com, or find the link on the home page"
+            },
+            "zh-TW": {
+                "title": "Om Kanna",
+                "home": "首頁",
+                "about": "關於我",
+                "portfolio": "作品集",
+                "contact": "聯繫我",
+                "welcome": "歡迎來到 Om Kanna 的個人網站",
+                "emailText": "感谢你进入这个网站",
+                "aboutText": "我的名字是 Om Kanna，我是一名...",
+                "portfolioText": "我的作品集...",
+                "contactText": "我的郵箱是ok8476980@gmail.com，你可以在首页打开链接"
             }
         };
 
-        let currentLanguage = "zh-TW";
-        let isLightMode = false;
-
-        function toggleThemeLanguage() {
-            // 切换语言
-            currentLanguage = currentLanguage === "zh-TW" ? "en" : "zh-TW";
-            document.getElementById("title").innerText = translations[currentLanguage].title;
-            document.querySelectorAll("nav a")[0].innerText = translations[currentLanguage].home;
-            document.querySelectorAll("nav a")[1].innerText = translations[currentLanguage].about;
-            document.querySelectorAll("nav a")[2].innerText = translations[currentLanguage].portfolio;
-            document.querySelectorAll("nav a")[3].innerText = translations[currentLanguage].contact;
-            document.getElementById("home-content").querySelector("h2").innerText = translations[currentLanguage].welcome;
-            document.getElementById("home-content").querySelector("p").innerText = translations[currentLanguage].emailText;
-            document.getElementById("about-content").querySelector("p").innerText = translations[currentLanguage].aboutText;
-            document.getElementById("portfolio-content").querySelector("p").innerText = translations[currentLanguage].portfolioText;
-            document.getElementById("contact-content").querySelector("p").innerText = translations[currentLanguage].contactText;
-
-            // 切换主题
-            isLightMode = !isLightMode;
-            document.body.classList.toggle("light-mode", isLightMode);
-        }
-
         function showContent(contentId) {
-            document.querySelectorAll(".content-wrapper").forEach(wrapper => {
-                wrapper.classList.remove("active");
+            const contentWrappers = document.querySelectorAll('.content-wrapper');
+
+            contentWrappers.forEach(wrapper => {
+                if (wrapper.id === `${contentId}-content`) {
+                    wrapper.classList.add('active');
+                } else {
+                    wrapper.classList.remove('active');
+                }
             });
-            document.getElementById(contentId + "-content").classList.add("active");
         }
 
-        function detectAdBlock() {
-            let adBlockEnabled = false;
-            const testAd = document.createElement("div");
-            testAd.innerHTML = "&nbsp;";
-            testAd.className = "adsbox";
-            document.body.appendChild(testAd);
-            if (testAd.offsetHeight === 0) {
-                adBlockEnabled = true;
-            }
-            testAd.remove();
-            document.getElementById("adblock-status").innerText = adBlockEnabled ? "已啟用廣告攔截" : "未啟用廣告攔截";
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            isLightMode = !isLightMode;
+        }
+
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === "en" ? "zh-TW" : "en";
+            document.documentElement.lang = currentLanguage;
+
+            document.getElementById('title').innerText = translations[currentLanguage].title;
+            document.querySelector('nav a[href="#home"]').innerText = translations[currentLanguage].home;
+            document.querySelector('nav a[href="#about"]').innerText = translations[currentLanguage].about;
+            document.querySelector('nav a[href="#portfolio"]').innerText = translations[currentLanguage].portfolio;
+            document.querySelector('nav a[href="#contact"]').innerText = translations[currentLanguage].contact;
+            document.querySelector('#home-content h2').innerText = translations[currentLanguage].welcome;
+            document.querySelector('#home-content p').innerText = translations[currentLanguage].emailText;
+            document.querySelector('#about-content p').innerText = translations[currentLanguage].aboutText;
+            document.querySelector('#portfolio-content p').innerText = translations[currentLanguage].portfolioText;
+            document.querySelector('#contact-content p').innerText = translations[currentLanguage].contactText;
+        }
+
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
         window.onload = function() {
-            detectAdBlock();
-        };
+            const adblockStatus = document.getElementById('adblock-status');
+            const adScript = document.createElement('script');
+
+            adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
+            adScript.onerror = function() {
+                adblockStatus.innerText = "Ad blocker is enabled";
+            };
+            adScript.onload = function() {
+                adblockStatus.innerText = "Ad blocker is not enabled";
+            };
+
+            document.body.appendChild(adScript);
+        }
     </script>
+
 </body>
 </html>
