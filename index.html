@@ -74,10 +74,10 @@
             max-width: 960px;
             margin: 20px auto;
             background-color: #333;
-            border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeInUp 1s ease-in-out forwards;
+            border-radius: 15px;
         }
 
         @keyframes fadeInUp {
@@ -155,7 +155,6 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.5s ease, color 0.5s ease;
-            border-radius: 5px;
         }
 
         body.light-mode #menu-toggle {
@@ -164,15 +163,16 @@
         }
 
         #menu {
-            display: none;
             position: fixed;
             top: 50px;
             right: 10px;
             background-color: #444;
             color: #fff;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            transition: transform 0.5s ease, opacity 0.5s ease;
+            border-radius: 10px;
+            padding: 10px;
+            display: none;
+            z-index: 1000;
+            transition: opacity 0.3s ease;
         }
 
         body.light-mode #menu {
@@ -182,7 +182,6 @@
 
         #menu.show {
             display: block;
-            transform: translateY(0);
             opacity: 1;
         }
 
@@ -190,19 +189,20 @@
             background: none;
             border: none;
             color: inherit;
-            padding: 10px;
+            padding: 5px;
+            cursor: pointer;
             width: 100%;
             text-align: left;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
         }
 
         #menu button:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: #555;
+            color: #ffcc00;
         }
 
         body.light-mode #menu button:hover {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: #ccc;
+            color: #000;
         }
 
         #adblock-status {
@@ -225,7 +225,7 @@
 <body>
 
     <header>
-        <h1 id="title">Om Kanna</h1>
+        <h1 id="title" lang="en" data-en="Om Kanna" data-zh="Om Kanna">Om Kanna</h1>
     </header>
 
     <nav>
@@ -238,52 +238,53 @@
     <main id="main-content">
         <!-- Home Content -->
         <div class="content-wrapper active" id="home-content">
-            <h2>Welcome to Om Kanna's personal website</h2>
-            <p>Thank you for visiting the website</p>
+            <h2 lang="en" data-en="Welcome to Om Kanna's website" data-zh="歡迎來到 Om Kanna 的個人網站">Welcome to Om Kanna's website</h2>
+            <p lang="en" data-en="Thank you for visiting." data-zh="感谢你进入这个网站">Thank you for visiting.</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
                     ok8476980@gmail.com
                 </a>
             </div>
+            <div class="social-media">
+                <p lang="en" data-en="me:" data-zh="我：">me:</p>
+                <a href="https://www.tumblr.com/omkanna?source=share" target="_blank">Tumblr</a> | 
+                <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">Twitter</a>
+            </div>
         </div>
 
         <!-- About Content -->
         <div class="content-wrapper" id="about-content">
-            <h2>About Me</h2>
-            <p>My name is Om Kanna, I am a...</p>
+            <h2 lang="en" data-en="About Me" data-zh="關於我">About Me</h2>
+            <p lang="en" data-en="My name is Om Kanna, and I am a..." data-zh="我的名字是 Om Kanna，我是一名...">My name is Om Kanna, and I am a...</p>
         </div>
 
         <!-- Portfolio Content -->
         <div class="content-wrapper" id="portfolio-content">
-            <h2>Portfolio</h2>
-            <p>My portfolio includes...</p>
+            <h2 lang="en" data-en="Portfolio" data-zh="作品集">Portfolio</h2>
+            <p lang="en" data-en="My portfolio..." data-zh="我的作品集...">My portfolio...</p>
         </div>
 
         <!-- Contact Content -->
         <div class="content-wrapper" id="contact-content">
-            <h2>Contact Me</h2>
-            <p>You can reach me at ok8476980@gmail.com, the link is available on the homepage</p>
+            <h2 lang="en" data-en="Contact Me" data-zh="聯繫我">Contact Me</h2>
+            <p lang="en" data-en="My email is ok8476980@gmail.com, you can open the link on the homepage." data-zh="我的郵箱是ok8476980@gmail.com，你可以在首页打开链接">My email is ok8476980@gmail.com, you can open the link on the homepage.</p>
         </div>
     </main>
 
     <footer>
-        <p>© 2024 Om Kanna</p>
-        <div id="adblock-status">Checking ad blocker status...</div>
+        <p lang="en" data-en="© 2024 Om Kanna" data-zh="© 2024 Om Kanna">© 2024 Om Kanna</p>
+        <div id="adblock-status">Checking adblock status...</div>
     </footer>
 
     <button id="menu-toggle" onclick="toggleMenu()">Menu</button>
     <div id="menu">
         <button onclick="toggleTheme()">Toggle Theme</button>
         <button onclick="toggleLanguage()">Toggle Language</button>
-        <a href="https://www.tumblr.com/omkanna?source=share">Tumblr</a>
-        <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09">Twitter</a>
-      
     </div>
 
     <script>
-        let isLightMode = false;
-        let isEnglish = true;
+        const defaultLanguage = 'en';
 
         function showContent(contentId) {
             const contentWrappers = document.querySelectorAll('.content-wrapper');
@@ -299,20 +300,14 @@
 
         function toggleTheme() {
             document.body.classList.toggle('light-mode');
-            isLightMode = !isLightMode;
         }
 
         function toggleLanguage() {
-            const elements = document.querySelectorAll('[lang="zh-TW"], [lang="en"]');
-            isEnglish = !isEnglish;
-            elements.forEach(el => {
-                if (isEnglish) {
-                    el.lang = "en";
-                    el.innerText = el.getAttribute("data-en");
-                } else {
-                    el.lang = "zh-TW";
-                    el.innerText = el.getAttribute("data-zh");
-                }
+            const currentLang = document.documentElement.lang === 'en' ? 'zh' : 'en';
+            document.documentElement.lang = currentLang;
+
+            document.querySelectorAll('[lang]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
             });
         }
 
@@ -327,10 +322,10 @@
 
             adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
             adScript.onerror = function() {
-                adblockStatus.innerText = "Ad blocker is enabled";
+                adblockStatus.innerText = "Adblock is enabled.";
             };
             adScript.onload = function() {
-                adblockStatus.innerText = "No ad blocker detected";
+                adblockStatus.innerText = "Adblock is disabled.";
             };
 
             document.body.appendChild(adScript);
