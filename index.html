@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om Kanna</title>
     <style>
-        /* 基础样式 */
         body {
             font-family: sans-serif;
             margin: 0;
@@ -20,7 +19,6 @@
             animation: fadeIn 1.5s ease-in-out forwards;
         }
 
-        /* 动画效果 */
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -44,6 +42,11 @@
         @keyframes slideDown {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(0); }
+        }
+
+        body.light-mode header {
+            background-color: #fff;
+            color: rgba(0, 0, 0, 0.7);
         }
 
         nav {
@@ -86,6 +89,26 @@
             color: #000;
         }
 
+        .content-wrapper {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .content-wrapper.active {
+            display: block;
+            opacity: 1;
+        }
+
+        .content-wrapper h2, .content-wrapper p {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .content-wrapper h2:hover, .content-wrapper p:hover {
+            transform: translateY(-10px);
+            color: #ffcc00;
+        }
+
         .email-container {
             text-align: center;
             margin-top: 20px;
@@ -121,42 +144,35 @@
             color: #000;
         }
 
-        /* 菜单样式 */
-        #menu-toggle {
+        #theme-toggle {
             position: fixed;
             top: 10px;
             right: 10px;
-            padding: 10px;
+            padding: 15px 20px;
             background-color: #444;
             color: #fff;
             border: none;
+            font-size: 16px;
             cursor: pointer;
             transition: background-color 0.5s ease, color 0.5s ease;
         }
 
-        body.light-mode #menu-toggle {
+        body.light-mode #theme-toggle {
             background-color: #ddd;
             color: #000;
         }
 
         #menu {
-            display: none;
             position: fixed;
-            top: 50px;
-            right: 10px;
+            top: 10px;
+            left: 10px;
+            padding: 15px 20px;
             background-color: #444;
             color: #fff;
-            padding: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-            transition: transform 0.5s ease;
-            transform: scale(0);
-            transform-origin: top right;
-        }
-
-        #menu.show {
-            display: block;
-            transform: scale(1);
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.5s ease, color 0.5s ease;
         }
 
         body.light-mode #menu {
@@ -164,33 +180,47 @@
             color: #000;
         }
 
-        #menu button {
-            display: block;
-            width: 100%;
-            margin-bottom: 10px;
-            background: none;
-            border: none;
-            color: inherit;
-            cursor: pointer;
-            text-align: left;
+        #dropdown-menu {
+            display: none;
+            position: fixed;
+            top: 60px;
+            left: 10px;
+            background-color: #222;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            z-index: 1000;
+            animation: fadeOut 5s ease-in-out forwards;
         }
 
-        #menu button:hover {
-            color: #ffcc00;
+        body.light-mode #dropdown-menu {
+            background-color: #f4f4f4;
+            color: #000;
         }
 
-        /* 彩蛋动画 */
-        #menu::after {
-            content: '🎉';
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; display: none; }
+        }
+
+        #dropdown-menu.active {
             display: block;
-            animation: spin 1s ease-in-out infinite;
-            margin-top: 10px;
+        }
+
+        #adblock-status {
+            margin-top: 20px;
+            padding: 10px;
             text-align: center;
+            font-size: 14px;
+            color: #fff;
+            background-color: #444;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            animation: fadeIn 2s ease-in-out forwards;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        body.light-mode #adblock-status {
+            background-color: #ddd;
+            color: #000;
         }
     </style>
 </head>
@@ -208,50 +238,50 @@
     </nav>
 
     <main id="main-content">
-        <!-- Home Content -->
+        <!-- Home content -->
         <div class="content-wrapper active" id="home-content">
             <h2>Welcome to Om Kanna's Personal Website</h2>
-            <p>Thank you for visiting this website</p>
+            <p>Thank you for visiting this site</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
                     ok8476980@gmail.com
                 </a>
             </div>
-            <div class="social-links">
-                <a href="https://www.tumblr.com/omkanna?source=share" target="_blank">Tumblr</a> | 
-                <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">Twitter</a>
-            </div>
         </div>
 
-        <!-- About Content -->
+        <!-- About Me content -->
         <div class="content-wrapper" id="about-content">
             <h2>About Me</h2>
-            <p>My name is Om Kanna, I am a...</p>
+            <p>My name is Om Kanna, and I am...</p>
+            <!-- Add more information about yourself -->
         </div>
 
-        <!-- Portfolio Content -->
+        <!-- Portfolio content -->
         <div class="content-wrapper" id="portfolio-content">
             <h2>Portfolio</h2>
-            <p>My portfolio includes...</p>
+            <p>My portfolio...</p>
+            <!-- Add your portfolio -->
         </div>
 
-        <!-- Contact Content -->
+        <!-- Contact Me content -->
         <div class="content-wrapper" id="contact-content">
             <h2>Contact Me</h2>
-            <p>My email is ok8476980@gmail.com, you can open the link on the homepage.</p>
+            <p>You can contact me at my email, listed on the homepage</p>
+            <!-- Add your contact details -->
         </div>
     </main>
 
     <footer>
         <p>© 2024 Om Kanna</p>
-        <div id="adblock-status">Checking adblock status...</div>
+        <div id="adblock-status">Checking for Adblock...</div>
     </footer>
 
-    <button id="menu-toggle" onclick="toggleMenu()">Menu</button>
-    <div id="menu">
-        <button onclick="toggleTheme()">Toggle Theme</button>
-        <button onclick="setLanguage()">Set Language</button>
+    <button id="theme-toggle" onclick="toggleTheme()">Toggle Theme</button>
+    <button id="menu" onclick="toggleMenu()">Menu</button>
+
+    <div id="dropdown-menu">
+        <p>This is an Easter egg animation!</p>
     </div>
 
     <script>
@@ -272,17 +302,11 @@
         }
 
         function toggleMenu() {
-            const menu = document.getElementById('menu');
-            menu.classList.toggle('show');
-        }
-
-        function setLanguage() {
-            const currentLang = document.documentElement.lang;
-            const targetLang = currentLang === 'en' ? 'zh' : 'en';
-            document.documentElement.lang = targetLang;
-
-            // 使用谷歌翻译切换语言
-            window.location.href = `https://translate.google.com/translate?sl=auto&tl=${targetLang}&u=${window.location.href}`;
+            const dropdownMenu = document.getElementById('dropdown-menu');
+            dropdownMenu.classList.add('active');
+            setTimeout(() => {
+                dropdownMenu.classList.remove('active');
+            }, 5000);
         }
 
         window.onload = function() {
@@ -291,10 +315,10 @@
 
             adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
             adScript.onerror = function() {
-                adblockStatus.innerText = "Adblock detected";
+                adblockStatus.innerText = "Adblock detected!";
             };
             adScript.onload = function() {
-                adblockStatus.innerText = "No adblock detected";
+                adblockStatus.innerText = "No Adblock detected!";
             };
 
             document.body.appendChild(adScript);
