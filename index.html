@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Om Kanna</title>
     <style>
+        /* 基础样式 */
         body {
             font-family: sans-serif;
             margin: 0;
@@ -19,6 +20,7 @@
             animation: fadeIn 1.5s ease-in-out forwards;
         }
 
+        /* 动画效果 */
         @keyframes fadeIn {
             0% { opacity: 0; }
             100% { opacity: 1; }
@@ -42,11 +44,6 @@
         @keyframes slideDown {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(0); }
-        }
-
-        body.light-mode header {
-            background-color: #fff;
-            color: rgba(0, 0, 0, 0.7);
         }
 
         nav {
@@ -77,7 +74,6 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeInUp 1s ease-in-out forwards;
-            border-radius: 15px;
         }
 
         @keyframes fadeInUp {
@@ -88,26 +84,6 @@
         body.light-mode main {
             background-color: #f4f4f4;
             color: #000;
-        }
-
-        .content-wrapper {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .content-wrapper.active {
-            display: block;
-            opacity: 1;
-        }
-
-        .content-wrapper h2, .content-wrapper p {
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .content-wrapper h2:hover, .content-wrapper p:hover {
-            transform: translateY(-10px);
-            color: #ffcc00;
         }
 
         .email-container {
@@ -145,6 +121,7 @@
             color: #000;
         }
 
+        /* 菜单样式 */
         #menu-toggle {
             position: fixed;
             top: 10px;
@@ -163,16 +140,23 @@
         }
 
         #menu {
+            display: none;
             position: fixed;
             top: 50px;
             right: 10px;
             background-color: #444;
             color: #fff;
-            border-radius: 10px;
             padding: 10px;
-            display: none;
-            z-index: 1000;
-            transition: opacity 0.3s ease;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            transition: transform 0.5s ease;
+            transform: scale(0);
+            transform-origin: top right;
+        }
+
+        #menu.show {
+            display: block;
+            transform: scale(1);
         }
 
         body.light-mode #menu {
@@ -180,74 +164,61 @@
             color: #000;
         }
 
-        #menu.show {
-            display: block;
-            opacity: 1;
-        }
-
         #menu button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
             background: none;
             border: none;
             color: inherit;
-            padding: 5px;
             cursor: pointer;
-            width: 100%;
             text-align: left;
         }
 
         #menu button:hover {
-            background-color: #555;
             color: #ffcc00;
         }
 
-        body.light-mode #menu button:hover {
-            background-color: #ccc;
-            color: #000;
-        }
-
-        #adblock-status {
-            margin-top: 20px;
-            padding: 10px;
+        /* 彩蛋动画 */
+        #menu::after {
+            content: '🎉';
+            display: block;
+            animation: spin 1s ease-in-out infinite;
+            margin-top: 10px;
             text-align: center;
-            font-size: 14px;
-            color: #fff;
-            background-color: #444;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            animation: fadeIn 2s ease-in-out forwards;
         }
 
-        body.light-mode #adblock-status {
-            background-color: #ddd;
-            color: #000;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1 id="title" lang="en" data-en="Om Kanna" data-zh="Om Kanna">Om Kanna</h1>
+        <h1 id="title">Om Kanna</h1>
     </header>
 
     <nav>
         <a href="#home" onclick="showContent('home')">Home</a>
-        <a href="#about" onclick="showContent('about')">About</a>
+        <a href="#about" onclick="showContent('about')">About Me</a>
         <a href="#portfolio" onclick="showContent('portfolio')">Portfolio</a>
-        <a href="#contact" onclick="showContent('contact')">Contact</a>
+        <a href="#contact" onclick="showContent('contact')">Contact Me</a>
     </nav>
 
     <main id="main-content">
         <!-- Home Content -->
         <div class="content-wrapper active" id="home-content">
-            <h2 lang="en" data-en="Welcome to Om Kanna's website" data-zh="歡迎來到 Om Kanna 的個人網站">Welcome to Om Kanna's website</h2>
-            <p lang="en" data-en="Thank you for visiting." data-zh="感谢你进入这个网站">Thank you for visiting.</p>
+            <h2>Welcome to Om Kanna's Personal Website</h2>
+            <p>Thank you for visiting this website</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
                     ok8476980@gmail.com
                 </a>
             </div>
-            <div class="social-media">
-                <p lang="en" data-en="me:" data-zh="我：">me:</p>
+            <div class="social-links">
                 <a href="https://www.tumblr.com/omkanna?source=share" target="_blank">Tumblr</a> | 
                 <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">Twitter</a>
             </div>
@@ -255,37 +226,35 @@
 
         <!-- About Content -->
         <div class="content-wrapper" id="about-content">
-            <h2 lang="en" data-en="About Me" data-zh="關於我">About Me</h2>
-            <p lang="en" data-en="My name is Om Kanna, and I am a..." data-zh="我的名字是 Om Kanna，我是一名...">My name is Om Kanna, and I am a...</p>
+            <h2>About Me</h2>
+            <p>My name is Om Kanna, I am a...</p>
         </div>
 
         <!-- Portfolio Content -->
         <div class="content-wrapper" id="portfolio-content">
-            <h2 lang="en" data-en="Portfolio" data-zh="作品集">Portfolio</h2>
-            <p lang="en" data-en="My portfolio..." data-zh="我的作品集...">My portfolio...</p>
+            <h2>Portfolio</h2>
+            <p>My portfolio includes...</p>
         </div>
 
         <!-- Contact Content -->
         <div class="content-wrapper" id="contact-content">
-            <h2 lang="en" data-en="Contact Me" data-zh="聯繫我">Contact Me</h2>
-            <p lang="en" data-en="My email is ok8476980@gmail.com, you can open the link on the homepage." data-zh="我的郵箱是ok8476980@gmail.com，你可以在首页打开链接">My email is ok8476980@gmail.com, you can open the link on the homepage.</p>
+            <h2>Contact Me</h2>
+            <p>My email is ok8476980@gmail.com, you can open the link on the homepage.</p>
         </div>
     </main>
 
     <footer>
-        <p lang="en" data-en="© 2024 Om Kanna" data-zh="© 2024 Om Kanna">© 2024 Om Kanna</p>
+        <p>© 2024 Om Kanna</p>
         <div id="adblock-status">Checking adblock status...</div>
     </footer>
 
     <button id="menu-toggle" onclick="toggleMenu()">Menu</button>
     <div id="menu">
         <button onclick="toggleTheme()">Toggle Theme</button>
-        <button onclick="toggleLanguage()">Toggle Language</button>
+        <button onclick="setLanguage()">Set Language</button>
     </div>
 
     <script>
-        const defaultLanguage = 'en';
-
         function showContent(contentId) {
             const contentWrappers = document.querySelectorAll('.content-wrapper');
 
@@ -302,18 +271,18 @@
             document.body.classList.toggle('light-mode');
         }
 
-        function toggleLanguage() {
-            const currentLang = document.documentElement.lang === 'en' ? 'zh' : 'en';
-            document.documentElement.lang = currentLang;
-
-            document.querySelectorAll('[lang]').forEach(el => {
-                el.innerText = el.getAttribute(`data-${currentLang}`);
-            });
-        }
-
         function toggleMenu() {
             const menu = document.getElementById('menu');
             menu.classList.toggle('show');
+        }
+
+        function setLanguage() {
+            const currentLang = document.documentElement.lang;
+            const targetLang = currentLang === 'en' ? 'zh' : 'en';
+            document.documentElement.lang = targetLang;
+
+            // 使用谷歌翻译切换语言
+            window.location.href = `https://translate.google.com/translate?sl=auto&tl=${targetLang}&u=${window.location.href}`;
         }
 
         window.onload = function() {
@@ -322,10 +291,10 @@
 
             adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
             adScript.onerror = function() {
-                adblockStatus.innerText = "Adblock is enabled.";
+                adblockStatus.innerText = "Adblock detected";
             };
             adScript.onload = function() {
-                adblockStatus.innerText = "Adblock is disabled.";
+                adblockStatus.innerText = "No adblock detected";
             };
 
             document.body.appendChild(adScript);
