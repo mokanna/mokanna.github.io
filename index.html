@@ -147,7 +147,7 @@
             color: #000;
         }
 
-        #theme-toggle {
+        #theme-language-toggle {
             position: fixed;
             top: 10px;
             right: 10px;
@@ -160,25 +160,7 @@
             border-radius: 10px; /* 添加圆角 */
         }
 
-        body.light-mode #theme-toggle {
-            background-color: #ddd;
-            color: #000;
-        }
-
-        #language-toggle {
-            position: fixed;
-            top: 10px;
-            right: 80px; /* 放在切换主题按钮旁边 */
-            padding: 10px;
-            background-color: #444;
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            transition: background-color 0.5s ease, color 0.5s ease;
-            border-radius: 10px; /* 添加圆角 */
-        }
-
-        body.light-mode #language-toggle {
+        body.light-mode #theme-language-toggle {
             background-color: #ddd;
             color: #000;
         }
@@ -254,8 +236,7 @@
         <div id="adblock-status">檢測廣告攔截狀態中...</div>
     </footer>
 
-    <button id="theme-toggle" onclick="toggleTheme()">切換模式</button>
-    <button id="language-toggle" onclick="toggleLanguage()">切換語言</button>
+    <button id="theme-language-toggle" onclick="toggleThemeLanguage()">切換模式和語言</button>
 
     <script>
         const translations = {
@@ -273,3 +254,63 @@
             },
             "en": {
                 title: "Om Kanna",
+                home: "Home",
+                about: "About Me",
+                portfolio: "Portfolio",
+                contact: "Contact Me",
+                welcome: "Welcome to Om Kanna's Personal Website",
+                emailText: "Thank you for visiting my website",
+                aboutText: "My name is Om Kanna, and I am a...",
+                portfolioText: "Here is my portfolio...",
+                contactText: "My email is ok8476980@gmail.com, you can open the link on the home page"
+            }
+        };
+
+        let currentLanguage = "zh-TW";
+        let isLightMode = false;
+
+        function toggleThemeLanguage() {
+            // 切换语言
+            currentLanguage = currentLanguage === "zh-TW" ? "en" : "zh-TW";
+            document.getElementById("title").innerText = translations[currentLanguage].title;
+            document.querySelectorAll("nav a")[0].innerText = translations[currentLanguage].home;
+            document.querySelectorAll("nav a")[1].innerText = translations[currentLanguage].about;
+            document.querySelectorAll("nav a")[2].innerText = translations[currentLanguage].portfolio;
+            document.querySelectorAll("nav a")[3].innerText = translations[currentLanguage].contact;
+            document.getElementById("home-content").querySelector("h2").innerText = translations[currentLanguage].welcome;
+            document.getElementById("home-content").querySelector("p").innerText = translations[currentLanguage].emailText;
+            document.getElementById("about-content").querySelector("p").innerText = translations[currentLanguage].aboutText;
+            document.getElementById("portfolio-content").querySelector("p").innerText = translations[currentLanguage].portfolioText;
+            document.getElementById("contact-content").querySelector("p").innerText = translations[currentLanguage].contactText;
+
+            // 切换主题
+            isLightMode = !isLightMode;
+            document.body.classList.toggle("light-mode", isLightMode);
+        }
+
+        function showContent(contentId) {
+            document.querySelectorAll(".content-wrapper").forEach(wrapper => {
+                wrapper.classList.remove("active");
+            });
+            document.getElementById(contentId + "-content").classList.add("active");
+        }
+
+        function detectAdBlock() {
+            let adBlockEnabled = false;
+            const testAd = document.createElement("div");
+            testAd.innerHTML = "&nbsp;";
+            testAd.className = "adsbox";
+            document.body.appendChild(testAd);
+            if (testAd.offsetHeight === 0) {
+                adBlockEnabled = true;
+            }
+            testAd.remove();
+            document.getElementById("adblock-status").innerText = adBlockEnabled ? "已啟用廣告攔截" : "未啟用廣告攔截";
+        }
+
+        window.onload = function() {
+            detectAdBlock();
+        };
+    </script>
+</body>
+</html>
