@@ -30,6 +30,16 @@
             background-image: url('day.jpg');
         }
 
+        /* Add animation to theme toggle */
+        body.light-mode {
+            animation: lightModeAnimation 0.5s ease-in-out;
+        }
+
+        @keyframes lightModeAnimation {
+            0% { background-color: #000; color: #fff; }
+            100% { background-color: #fff; color: #000; }
+        }
+
         header {
             background-color: #000;
             color: rgba(255, 255, 255, 0.7);
@@ -282,7 +292,7 @@
 
     <div id="dropdown-menu">
         <p>This is an Easter egg animation!</p>
-    </div>
+        <img src="your-easter-egg-gif.gif" alt="Easter Egg GIF"> </div>
 
     <script>
         function showContent(contentId) {
@@ -315,7 +325,7 @@
 
             adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
             adScript.onerror = function() {
-                adblockStatus.innerText = "Adblock detected!";
+                adblockStatus.innerText = "You have enabled Adblock!"; // Changed message
             };
             adScript.onload = function() {
                 adblockStatus.innerText = "No Adblock detected!";
