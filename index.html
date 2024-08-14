@@ -56,6 +56,7 @@
             text-align: center;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: slideDown 1.2s ease-in-out forwards;
+            border-radius: 10px; /* 添加圆角 */
         }
 
         nav a {
@@ -77,6 +78,7 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeInUp 1s ease-in-out forwards;
+            border-radius: 10px; /* 添加圆角 */
         }
 
         @keyframes fadeInUp {
@@ -93,6 +95,7 @@
             display: none;
             opacity: 0;
             transition: opacity 0.5s ease;
+            border-radius: 10px; /* 添加圆角 */
         }
 
         .content-wrapper.active {
@@ -154,9 +157,28 @@
             border: none;
             cursor: pointer;
             transition: background-color 0.5s ease, color 0.5s ease;
+            border-radius: 10px; /* 添加圆角 */
         }
 
         body.light-mode #theme-toggle {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        #language-toggle {
+            position: fixed;
+            top: 10px;
+            right: 80px; /* 放在切换主题按钮旁边 */
+            padding: 10px;
+            background-color: #444;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.5s ease, color 0.5s ease;
+            border-radius: 10px; /* 添加圆角 */
+        }
+
+        body.light-mode #language-toggle {
             background-color: #ddd;
             color: #000;
         }
@@ -170,6 +192,7 @@
             background-color: #444;
             transition: background-color 0.5s ease, color 0.5s ease;
             animation: fadeIn 2s ease-in-out forwards;
+            border-radius: 10px; /* 添加圆角 */
         }
 
         body.light-mode #adblock-status {
@@ -232,39 +255,21 @@
     </footer>
 
     <button id="theme-toggle" onclick="toggleTheme()">切換模式</button>
+    <button id="language-toggle" onclick="toggleLanguage()">切換語言</button>
 
     <script>
-        function showContent(contentId) {
-            const contentWrappers = document.querySelectorAll('.content-wrapper');
-
-            contentWrappers.forEach(wrapper => {
-                if (wrapper.id === `${contentId}-content`) {
-                    wrapper.classList.add('active');
-                } else {
-                    wrapper.classList.remove('active');
-                }
-            });
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-mode');
-        }
-
-        window.onload = function() {
-            const adblockStatus = document.getElementById('adblock-status');
-            const adScript = document.createElement('script');
-
-            adScript.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js';
-            adScript.onerror = function() {
-                adblockStatus.innerText = "您啟用了廣告攔截插件";
-            };
-            adScript.onload = function() {
-                adblockStatus.innerText = "您未啟用廣告攔截插件";
-            };
-
-            document.body.appendChild(adScript);
-        }
-    </script>
-
-</body>
-</html>
+        const translations = {
+            "zh-TW": {
+                title: "Om Kanna",
+                home: "首頁",
+                about: "關於我",
+                portfolio: "作品集",
+                contact: "聯繫我",
+                welcome: "歡迎來到 Om Kanna 的個人網站",
+                emailText: "感谢你进入这个网站",
+                aboutText: "我的名字是 Om Kanna，我是一名...",
+                portfolioText: "我的作品集...",
+                contactText: "我的郵箱是ok8476980@gmail.com，你可以在首页打开链接"
+            },
+            "en": {
+                title: "Om Kanna",
