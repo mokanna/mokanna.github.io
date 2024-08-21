@@ -189,7 +189,7 @@
             right: 10px;
             background-color: #333;
             color: #fff;
-            border-radius: 15px; /* 添加圆角 */
+            border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 10px;
             z-index: 1000;
@@ -198,7 +198,6 @@
         body.light-mode #menu {
             background-color: #ddd;
             color: #000;
-            border-radius: 15px; /* 添加圆角 */
         }
 
         #menu a {
@@ -288,49 +287,62 @@
 
     <footer>
         <p>© 2024 Om Kanna</p>
-        <div id="adblock-status">You have adblock enabled.</div>
+        <div id="adblock-status">Checking ad blocker status...</div>
     </footer>
 
-    <button id="menu-toggle">Menu</button>
-
+    <button id="menu-toggle" onclick="toggleMenu()">☰</button>
     <div id="menu">
-        <a onclick="toggleMode()">Toggle Mode</a>
-        <a onclick="translateContent()">Translate</a>
+        <a href="#" onclick="toggleMode()">Toggle Mode</a>
+        <a href="#" onclick="setLanguage('en')">English</a>
+        <a href="#" onclick="setLanguage('zh')">中文</a>
     </div>
 
     <script>
-        document.getElementById("menu-toggle").addEventListener("click", function() {
-            var menu = document.getElementById("menu");
-            if (menu.style.display === "none" || menu.style.display === "") {
-                menu.style.display = "block";
-                setTimeout(function() {
-                    menu.style.display = "none";
-                }, 5000); // 5秒后隐藏菜单
-            } else {
-                menu.style.display = "none";
-            }
-        });
+        function showContent(contentId) {
+            const contents = document.querySelectorAll('.content-wrapper');
+            contents.forEach(content => content.classList.remove('active'));
+            document.getElementById(contentId + '-content').classList.add('active');
+        }
 
-        function showContent(sectionId) {
-            var sections = document.querySelectorAll('.content-wrapper');
-            sections.forEach(function(section) {
-                section.classList.remove('active');
-            });
-            document.getElementById(sectionId + '-content').classList.add('active');
+        function toggleMenu() {
+            const menu = document.getElementById('menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            setTimeout(() => menu.style.display = 'none', 5000);
         }
 
         function toggleMode() {
             document.body.classList.toggle('light-mode');
         }
 
-        function translateContent() {
-            // 使用谷歌翻译进行内容翻译
+        function setLanguage(language) {
+            if (language === 'en') {
+                document.getElementById('title').innerText = 'Om Kanna';
+                document.querySelector('nav a[href="#home"]').innerText = 'Home';
+                document.querySelector('nav a[href="#about"]').innerText = 'About';
+                document.querySelector('nav a[href="#portfolio"]').innerText = 'Portfolio';
+                document.querySelector('nav a[href="#contact"]').innerText = 'Contact';
+                document.querySelector('#menu a:nth-child(2)').innerText = 'English';
+                document.querySelector('#menu a:nth-child(3)').innerText = '中文';
+            } else if (language === 'zh') {
+                document.getElementById('title').innerText = 'Om Kanna';
+                document.querySelector('nav a[href="#home"]').innerText = '主页';
+                document.querySelector('nav a[href="#about"]').innerText = '关于';
+                document.querySelector('nav a[href="#portfolio"]').innerText = '作品集';
+                document.querySelector('nav a[href="#contact"]').innerText = '联系';
+                document.querySelector('#menu a:nth-child(2)').innerText = '英文';
+                document.querySelector('#menu a:nth-child(3)').innerText = '中文';
+            }
+        }
+
+        function detectAdblock() {
+            const adblockStatus = document.getElementById('adblock-status');
+            if (adblockStatus) {
+                adblockStatus.innerText = 'You have enabled adblock.';
+            }
         }
 
         window.onload = function() {
-            setTimeout(function() {
-                document.getElementById("main-content").style.display = "block";
-            }, 1000);
+            detectAdblock();
         };
     </script>
 </body>
