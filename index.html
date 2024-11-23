@@ -265,6 +265,7 @@
             <h2>About Me</h2>
             <p>My name is Om Kanna, and I am...</p>
             <div class="social-media">
+                <p>I also have a bluesky, Xiaohongshu account, you just need to search kanna on it</p>
                 <a href="https://www.tumblr.com/omkanna?source=share" target="_blank">
                     <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Tumblr Icon">
                 </a>
@@ -338,16 +339,19 @@
             }
         }
 
-        function detectAdblock() {
-            const adblockStatus = document.getElementById('adblock-status');
-            if (adblockStatus) {
-                adblockStatus.innerText = 'You have enabled adblock.';
-            }
+     function detectAdblock() {
+    const ad = document.createElement('div');
+    ad.className = 'ad-banner';
+    ad.style.display = 'none';
+    document.body.appendChild(ad);
+    setTimeout(() => {
+        if (!ad.offsetParent) {
+            document.getElementById('adblock-status').innerText = 'You have enabled Adblock.';
         }
+        ad.remove();
+    }, 100);
+}
 
-        window.onload = function() {
-            detectAdblock();
-        };
     </script>
 </body>
 </html>
