@@ -339,18 +339,26 @@
             }
         }
 
-     function detectAdblock() {
+        function detectAdblock() {
     const ad = document.createElement('div');
     ad.className = 'ad-banner';
-    ad.style.display = 'none';
+    ad.style.cssText = 'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -10000px !important;'; // 更强的隐藏方式
     document.body.appendChild(ad);
+
     setTimeout(() => {
-        if (!ad.offsetParent) {
-            document.getElementById('adblock-status').innerText = 'You have enabled Adblock.';
+        if (!ad.offsetParent && !ad.offsetWidth && !ad.offsetHeight) {
+            document.getElementById('adblock-status').innerText = 'Adblock Status: You have enabled Adblock.';
+        } else {
+            document.getElementById('adblock-status').innerText = 'Adblock Status: Adblock is not detected.';
         }
         ad.remove();
-    }, 100);
+    }, 500); // 适当增加延迟时间
 }
+
+// 页面加载完成后执行检测
+window.onload = function() {
+    detectAdblock();
+};
 
     </script>
 </body>
