@@ -193,11 +193,20 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             padding: 10px;
             z-index: 1000;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
         body.light-mode #menu {
             background-color: #ddd;
             color: #000;
+        }
+
+        #menu.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         #menu a {
@@ -252,7 +261,7 @@
     <main id="main-content">
         <div class="content-wrapper active" id="home-content">
             <h2>Welcome to Om Kanna's personal website</h2>
-            <p>Thank you for visiting this site</p>
+            <p>Thank you for visiting this site, I am an adult.</p>
             <div class="email-container">
                 <a href="mailto:ok8476980@gmail.com">
                     <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" width="20" height="20">
@@ -272,10 +281,9 @@
                 <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">
                     <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter Icon">
                 </a>
-            </a>
-            <a href="https://www.pixiv.net/en/users/107279901" target="_blank">
-                <img src="https://www.pixiv.net/favicon.ico" alt="Pixiv">
-            </a>
+                <a href="https://www.pixiv.net/en/users/107279901" target="_blank">
+                    <img src="https://www.pixiv.net/favicon.ico" alt="Pixiv">
+                </a>
             </div>
         </div>
 
@@ -311,8 +319,10 @@
 
         function toggleMenu() {
             const menu = document.getElementById('menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-            setTimeout(() => menu.style.display = 'none', 5000);
+            menu.classList.toggle('show');
+            if (menu.classList.contains('show')) {
+                setTimeout(() => menu.classList.remove('show'), 5000);
+            }
         }
 
         function toggleMode() {
@@ -320,46 +330,38 @@
         }
 
         function setLanguage(language) {
-            if (language === 'en') {
-                document.getElementById('title').innerText = 'Om Kanna';
-                document.querySelector('nav a[href="#home"]').innerText = 'Home';
-                document.querySelector('nav a[href="#about"]').innerText = 'About';
-                document.querySelector('nav a[href="#portfolio"]').innerText = 'Portfolio';
-                document.querySelector('nav a[href="#contact"]').innerText = 'Contact';
-                document.querySelector('#menu a:nth-child(2)').innerText = 'English';
-                document.querySelector('#menu a:nth-child(3)').innerText = '中文';
-            } else if (language === 'zh') {
-                document.getElementById('title').innerText = 'Om Kanna';
-                document.querySelector('nav a[href="#home"]').innerText = '主页';
-                document.querySelector('nav a[href="#about"]').innerText = '关于';
-                document.querySelector('nav a[href="#portfolio"]').innerText = '作品集';
-                document.querySelector('nav a[href="#contact"]').innerText = '联系';
-                document.querySelector('#menu a:nth-child(2)').innerText = '英文';
-                document.querySelector('#menu a:nth-child(3)').innerText = '中文';
-            }
+            const translations = {
+                en: { title: 'Om Kanna', home: 'Home', about: 'About', portfolio: 'Portfolio', contact: 'Contact' },
+                zh: { title: 'Om Kanna 中文版', home: '首頁', about: '关于', portfolio: '作品集', contact: '联系' }
+            };
+            const t = translations[language];
+            document.getElementById('title').innerText = t.title;
+            document.querySelector('nav a[href="#home"]').innerText = t.home;
+            document.querySelector('nav a[href="#about"]').innerText = t.about;
+            document.querySelector('nav a[href="#portfolio"]').innerText = t.portfolio;
+            document.querySelector('nav a[href="#contact"]').innerText = t.contact;
         }
 
         function detectAdblock() {
-    const ad = document.createElement('div');
-    ad.className = 'ad-banner';
-    ad.style.cssText = 'width: 1px !important; height: 1px !important; position: absolute !important; left: -10000px !important; top: -10000px !important;'; // 更强的隐藏方式
-    document.body.appendChild(ad);
+            const ad = document.createElement('div');
+            ad.className = 'ad-banner';
+            ad.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;';
+            document.body.appendChild(ad);
 
-    setTimeout(() => {
-        if (!ad.offsetParent && !ad.offsetWidth && !ad.offsetHeight) {
-            document.getElementById('adblock-status').innerText = 'Adblock Status: You have enabled Adblock.';
-        } else {
-            document.getElementById('adblock-status').innerText = 'Adblock Status: Adblock is not detected.';
+            setTimeout(() => {
+                const status = document.getElementById('adblock-status');
+                if (!ad.offsetParent && !ad.offsetWidth && !ad.offsetHeight) {
+                    status.innerText = 'Adblock Status: You have enabled Adblock.';
+                    status.style.color = 'red';
+                } else {
+                    status.innerText = 'Adblock Status: Adblock is not detected.';
+                    status.style.color = 'green';
+                }
+                ad.remove();
+            }, 500);
         }
-        ad.remove();
-    }, 500); // 适当增加延迟时间
-}
 
-// 页面加载完成后执行检测
-window.onload = function() {
-    detectAdblock();
-};
-
+        window.onload = detectAdblock;
     </script>
 </body>
 </html>
