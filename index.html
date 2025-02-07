@@ -119,21 +119,6 @@
       margin-top: 20px;
     }
 
-    /* REMOVE THIS - it's conflicting with the animated email styles
-    .email-container a {
-      color: inherit;
-      text-decoration: none;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .email-container img {
-      margin-right: 10px;
-    }
-    */
-
     .social-media {
       margin-top: 15px;
       display: flex;
@@ -261,51 +246,53 @@
       background-color: #ddd;
       color: #000;
     }
-     /* Styles for the animated email container */
+
+    /* 修改后的邮箱动画样式 */
     .animated-email-container {
       position: relative;
-      display: inline-block; /* Important for positioning */
-      overflow: hidden; /* Hide the email text initially */
+      display: inline-block; /* 保持内联块以便定位 */
+      overflow: visible;     /* 修改为 visible，防止邮箱文字被裁剪 */
       cursor: pointer;
-      text-align: center; /* Center the content */
+      text-align: center;
     }
 
     .animated-email-container img {
-      width: 50px; /* Adjust as needed */
-      height: 50px; /* Adjust as needed */
-      transition: transform 0.3s ease; /* Smooth animation */
+      width: 50px; /* 根据需要调整 */
+      height: 50px; /* 根据需要调整 */
+      transition: transform 0.3s ease; /* 平滑动画 */
     }
-     .animated-email-container:hover img{
-        transform: translateY(-30px); /* Slightly more dramatic lift */
-     }
+    
+    .animated-email-container:hover img {
+      transform: translateY(-30px); /* 悬停时图标上移 */
+    }
 
     .animated-email-container .email-text {
       position: absolute;
-      top: 100%;        /* Start below the icon */
-      left: 0;          /* Start fully to the left */
-      width: 100%;     /* Occupy full container width */
+      top: 120%;        /* 初始时位于图标下方 */
+      left: 0;
+      width: 100%;      /* 占满整个容器宽度 */
       background-color: rgba(0, 0, 0, 0.8);
       color: #fff;
-      padding: 5px 0;  /* Padding on top/bottom only */
+      padding: 5px 0;   /* 上下内边距 */
       border-radius: 5px;
       opacity: 0;
       transition: opacity 0.3s ease, top 0.3s ease;
       white-space: nowrap;
       font-size: 16px;
-      text-align: center; /* Ensure text is centered */
+      text-align: center; /* 确保文字居中 */
     }
 
     .animated-email-container:hover .email-text {
-      top: 40%; /* Adjusted position */
+      top: 100%; /* 悬停时调整位置，使文字刚好显示在图标下方 */
       opacity: 1;
     }
 
     .animated-email-container .email-text a {
-        color: #fff;  /* Ensure email link is white */
-        text-decoration: none; /* Remove underline */
-        display: block; /* Make the link fill the container */
-        width: 100%;
-        height: 100%;
+      color: #fff;  /* 邮箱链接为白色 */
+      text-decoration: none; /* 去除下划线 */
+      display: block; /* 链接占满整个容器 */
+      width: 100%;
+      height: 100%;
     }
   </style>
 </head>
@@ -327,11 +314,11 @@
       <h2>Welcome to Om Kanna's personal website</h2>
       <p>Thank you for visiting this site, I am an adult.</p>
       <div class="email-container">
-          <!--  Animated Email Icon -->
+        <!-- Animated Email Icon -->
         <div class="animated-email-container">
           <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon">
           <div class="email-text">
-              <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
+            <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
           </div>
         </div>
       </div>
@@ -364,14 +351,16 @@
 
     <div class="content-wrapper" id="contact-content">
       <h2>Contact Me</h2>
-      <p>Please contact me primarily via email:  ok8476980@gmail.com or click icon
+      <p>
+        Please contact me primarily via email: ok8476980@gmail.com or click icon
         <div class="animated-email-container">
           <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon">
           <div class="email-text">
             <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
+          </div>
         </div>
-        </div>
-      .  You can also find the email link on the home page.</p>
+        . You can also find the email link on the home page.
+      </p>
     </div>
   </main>
 
