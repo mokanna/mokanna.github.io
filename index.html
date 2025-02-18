@@ -72,14 +72,15 @@
       color: #ffcc00;
     }
 
-    /* Mobile responsive nav: stack links vertically */
+    /* Mobile responsive adjustments */
     @media (max-width: 600px) {
       nav {
         padding: 0.8em 0;
       }
+      /* Keep nav links inline (horizontally arranged) on mobile */
       nav a {
-        display: block;
-        margin: 10px 0;
+        display: inline-block;
+        margin: 0 1em;
       }
       header, footer {
         padding: 0.8em 0;
