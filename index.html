@@ -5,114 +5,120 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Om Kanna</title>
   <style>
-    /* Global Styles & Animations */
+    :root {
+      --bg-dark: #000;
+      --bg-light: #fff;
+      --text-dark: #fff;
+      --text-light: #000;
+      --nav-dark: #222;
+      --nav-light: #f4f4f4;
+      --main-dark: #333;
+      --main-light: #f4f4f4;
+      --accent: #ffcc00;
+      --shadow: rgba(0, 0, 0, 0.8);
+      --transition: 0.5s ease;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #000;
-      color: #fff;
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
       background-image: url('night.jpg');
       background-size: cover;
       background-position: center;
-      transition: background-image 0.5s ease, color 0.5s ease;
+      transition: background-image var(--transition), color var(--transition);
       opacity: 0;
       animation: fadeIn 1.2s ease-out forwards;
       scroll-behavior: smooth;
     }
-    
+
     @keyframes fadeIn {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     body.light-mode {
-      background-color: #fff;
-      color: #000;
+      background-color: var(--bg-light);
+      color: var(--text-light);
       background-image: url('day.jpg');
     }
 
     header {
-      background-color: #000;
+      background-color: var(--bg-dark);
       color: rgba(255, 255, 255, 0.7);
       text-align: center;
-      padding: 1em 0;
-      transition: color 0.5s ease;
+      padding: 1rem;
+      transition: background-color var(--transition), color var(--transition);
       animation: slideDown 0.8s ease-out forwards;
     }
 
     @keyframes slideDown {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(0); }
+      from { transform: translateY(-100%); }
+      to { transform: translateY(0); }
     }
 
     body.light-mode header {
-      background-color: #fff;
+      background-color: var(--bg-light);
       color: rgba(0, 0, 0, 0.7);
     }
 
     nav {
-      background-color: #222;
-      color: #fff;
-      padding: 1em 0;
+      background-color: var(--nav-dark);
+      padding: 1rem;
       text-align: center;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      animation: slideDown 0.8s ease-out forwards;
+      transition: background-color var(--transition);
     }
 
     nav a {
       color: inherit;
       text-decoration: none;
-      margin: 0 1.5em;
+      margin: 0 1.5rem;
       transition: color 0.3s ease;
-      display: inline-block;
+      font-weight: 500;
     }
 
-    nav a:hover {
-      color: #ffcc00;
+    nav a:hover, nav a.active {
+      color: var(--accent);
     }
 
-    /* Mobile responsive adjustments */
     @media (max-width: 600px) {
-      nav {
-        padding: 0.8em 0;
-      }
-      /* Keep nav links inline (horizontally arranged) on mobile */
       nav a {
+        margin: 0.5rem;
         display: inline-block;
-        margin: 0 1em;
       }
       header, footer {
-        padding: 0.8em 0;
+        padding: 0.8rem;
       }
       main {
-        margin: 10px;
-        padding: 15px;
-      }
-      #menu-toggle {
-        font-size: 1.2em;
+        margin: 0.5rem;
+        padding: 1rem;
       }
     }
 
     main {
-      padding: 20px;
+      padding: 1.5rem;
       max-width: 960px;
-      margin: 20px auto;
-      background-color: #333;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-      border-radius: 10px;
-      transition: background-color 0.5s ease, color 0.5s ease;
+      margin: 1.5rem auto;
+      background-color: var(--main-dark);
+      box-shadow: 0 4px 12px var(--shadow);
+      border-radius: 12px;
+      transition: background-color var(--transition);
       animation: fadeInUp 0.8s ease-out forwards;
     }
 
     @keyframes fadeInUp {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     body.light-mode main {
-      background-color: #f4f4f4;
-      color: #000;
+      background-color: var(--main-light);
     }
 
     .content-wrapper {
@@ -126,33 +132,29 @@
       opacity: 1;
     }
 
-    .content-wrapper h2,
+    .content-wrapper h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
     .content-wrapper p {
-      transition: transform 0.3s ease, color 0.3s ease;
+      line-height: 1.6;
+      margin-bottom: 1rem;
     }
 
-    .content-wrapper h2:hover,
-    .content-wrapper p:hover {
-      transform: translateY(-5px);
-      color: #ffcc00;
-    }
-
-    .email-container {
+    .email-container, .social-media {
       text-align: center;
-      margin-top: 20px;
+      margin: 1.5rem 0;
     }
 
     .social-media {
-      margin-top: 15px;
       display: flex;
-      gap: 15px;
-      justify-content: flex-start;
-      align-items: center;
+      gap: 1rem;
+      justify-content: center;
       flex-wrap: wrap;
     }
 
     .social-media a {
-      display: inline-block;
       transition: transform 0.3s ease;
     }
 
@@ -161,8 +163,9 @@
     }
 
     .social-media img {
-      width: 30px;
-      height: 30px;
+      width: 32px;
+      height: 32px;
+      object-fit: contain;
       opacity: 0.8;
       transition: opacity 0.3s ease;
     }
@@ -172,174 +175,150 @@
     }
 
     footer {
-      background-color: #222;
-      color: #fff;
+      background-color: var(--nav-dark);
+      color: var(--text-dark);
       text-align: center;
-      padding: 1em 0;
-      position: fixed;
-      bottom: 0;
+      padding: 1rem;
       width: 100%;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      animation: fadeIn 1.2s ease-out forwards;
+      transition: background-color var(--transition);
     }
 
     body.light-mode footer {
-      background-color: #f4f4f4;
-      color: #000;
+      background-color: var(--main-light);
+      color: var(--text-light);
     }
 
-    #menu-toggle {
+    .menu-toggle {
       position: fixed;
-      top: 10px;
-      right: 10px;
-      padding: 10px 15px;
-      background-color: #444;
-      color: #fff;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.6rem 0.8rem;
+      background-color: var(--main-dark);
+      color: var(--text-dark);
       border: none;
+      border-radius: 6px;
       cursor: pointer;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      border-radius: 5px;
-      font-size: 1em;
-      line-height: 1;
+      transition: background-color var(--transition);
       z-index: 1001;
     }
 
-    body.light-mode #menu-toggle {
-      background-color: #ddd;
-      color: #000;
+    body.light-mode .menu-toggle {
+      background-color: var(--main-light);
+      color: var(--text-light);
     }
 
-    #menu {
+    .menu {
       display: none;
       position: fixed;
-      top: 50px;
-      right: 10px;
-      background-color: #333;
-      color: #fff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-      padding: 10px;
+      top: 3.5rem;
+      right: 1rem;
+      background-color: var(--main-dark);
+      border-radius: 8px;
+      box-shadow: 0 4px 12px var(--shadow);
+      padding: 0.5rem;
       z-index: 1000;
       opacity: 0;
-      transform: translateY(-20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transform: translateY(-10px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
-    body.light-mode #menu {
-      background-color: #ddd;
-      color: #000;
+    body.light-mode .menu {
+      background-color: var(--main-light);
     }
 
-    #menu.show {
+    .menu.show {
       display: block;
       opacity: 1;
       transform: translateY(0);
     }
 
-    #menu a {
+    .menu a {
       display: block;
       color: inherit;
       text-decoration: none;
-      margin: 5px 0;
-      cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 5px;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
       transition: background-color 0.3s ease;
     }
 
-    #menu a:hover {
-      background-color: #555;
-    }
-
-    body.light-mode #menu a:hover {
-      background-color: #bbb;
+    .menu a:hover {
+      background-color: var(--accent);
+      color: var(--text-light);
     }
 
     #adblock-status {
-      margin-top: 20px;
-      padding: 10px;
-      text-align: center;
-      font-size: 14px;
-      color: #fff;
-      background-color: #444;
-      transition: background-color 0.5s ease, color 0.5s ease;
-      animation: fadeIn 1.5s ease-out forwards;
+      margin-top: 1rem;
+      padding: 0.5rem;
+      font-size: 0.9rem;
+      background-color: var(--main-dark);
+      border-radius: 4px;
+      transition: background-color var(--transition);
     }
 
     body.light-mode #adblock-status {
-      background-color: #ddd;
-      color: #000;
+      background-color: var(--main-light);
     }
 
-    /* Animated Email Icon Styles */
     .animated-email-container {
       position: relative;
       display: inline-block;
-      overflow: visible;
       cursor: pointer;
-      text-align: center;
     }
 
     .animated-email-container img {
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       transition: transform 0.3s ease;
     }
-    
+
     .animated-email-container:hover img {
-      transform: translateY(-30px);
+      transform: translateY(-10px);
     }
 
     .animated-email-container .email-text {
       position: absolute;
-      top: 120%;
-      left: 0;
-      width: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      color: #fff;
-      padding: 5px 0;
-      border-radius: 5px;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: rgba(0, 0, 0, 0.9);
+      color: var(--text-dark);
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
       opacity: 0;
-      transition: opacity 0.3s ease, top 0.3s ease;
+      transition: opacity 0.3s ease;
       white-space: nowrap;
-      font-size: 16px;
-      text-align: center;
+      font-size: 0.9rem;
     }
 
     .animated-email-container:hover .email-text {
-      top: 100%;
       opacity: 1;
     }
 
     .animated-email-container .email-text a {
-      color: #fff;
+      color: inherit;
       text-decoration: none;
-      display: block;
-      width: 100%;
-      height: 100%;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1 id="title">Om Kanna</h1>
+    <h1>Om Kanna</h1>
   </header>
 
-  <nav>
-    <a href="#home" onclick="showContent('home')">Home</a>
-    <a href="#about" onclick="showContent('about')">About</a>
-    <a href="#portfolio" onclick="showContent('portfolio')">Portfolio</a>
-    <a href="#contact" onclick="showContent('contact')">Contact</a>
+  <nav role="navigation">
+    <a href="#home" class="active" aria-label="View Home section">Home</a>
+    <a href="#about" aria-label="View About section">About</a>
+    <a href="#portfolio" aria-label="View Portfolio section">Portfolio</a>
+    <a href="#contact" aria-label="View Contact section">Contact</a>
   </nav>
 
   <main id="main-content">
     <div class="content-wrapper active" id="home-content">
       <h2>Welcome to Om Kanna's personal website</h2>
-      <p>Thank you for visiting this site, I am an adult.</p>
+      <p>Thank you for visiting this site. I am an adult.</p>
       <div class="email-container">
-        <!-- Animated Email Icon -->
         <div class="animated-email-container">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" />
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Contact via Email" />
           <div class="email-text">
             <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
           </div>
@@ -349,23 +328,22 @@
 
     <div class="content-wrapper" id="about-content">
       <h2>About Me</h2>
+      <p>
+        My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use.
+        Please follow my new Tumblr account or search "om kanna" on Bluesky to find me.
+      </p>
       <div class="social-media">
-        <p>
-          My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use.
-          Please follow my new Tumblr account: I also have a Bluesky account, please search "om kanna" and you can find me.
-        </p>
         <a href="https://omkannanew.tumblr.com" target="_blank">
-          <img src="https://www.svgrepo.com/show/66655/tumblr-logo.svg" alt="Tumblr Icon" />
+          <img src="https://www.svgrepo.com/show/66655/tumblr-logo.svg" alt="Follow on Tumblr" />
         </a>
         <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter Icon" />
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Follow on Twitter" />
         </a>
         <a href="https://www.pixiv.net/en/users/107279901" target="_blank">
-          <img src="https://www.pixiv.net/favicon.ico" alt="Pixiv" />
+          <img src="https://www.pixiv.net/favicon.ico" alt="View on Pixiv" />
         </a>
-        <!-- Bluesky Link -->
         <a href="https://bsky.app/profile/omkanna.bsky.social" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="Bluesky Icon" style="width: 30px; height: 30px;" />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="Follow on Bluesky" />
         </a>
       </div>
       <p>My name is Om Kanna, and I am...</p>
@@ -373,20 +351,20 @@
 
     <div class="content-wrapper" id="portfolio-content">
       <h2>Portfolio</h2>
-      <p>Feel free to use/reprint, but no AI or profit-making commercial use is allowed</p>
+      <p>Feel free to use/reprint, but no AI or profit-making commercial use is allowed.</p>
     </div>
 
     <div class="content-wrapper" id="contact-content">
       <h2>Contact Me</h2>
       <p>
-        Please contact me primarily via email: ok8476980@gmail.com or click the icon below:
+        Please contact me primarily via email:
         <div class="animated-email-container">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email Icon" />
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Contact via Email" />
           <div class="email-text">
             <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
           </div>
         </div>
-        . You can also find the email link on the home page.
+        or find the email link on the home page.
       </p>
     </div>
   </main>
@@ -396,50 +374,82 @@
     <div id="adblock-status">Checking ad blocker status...</div>
   </footer>
 
-  <button id="menu-toggle" onclick="toggleMenu()">☰</button>
-  <div id="menu">
-    <a href="#" onclick="toggleMode()">Toggle Mode</a>
+  <button class="menu-toggle" aria-label="Toggle menu">☰</button>
+  <div class="menu">
+    <a href="#toggle-mode" aria-label="Toggle between light and dark mode">Toggle Mode</a>
   </div>
 
   <script>
-    function showContent(contentId) {
-      const contents = document.querySelectorAll('.content-wrapper');
+    const navLinks = document.querySelectorAll('nav a');
+    const contents = document.querySelectorAll('.content-wrapper');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+    const toggleModeLink = document.querySelector('.menu a[href="#toggle-mode"]');
+
+    function showContent(hash) {
       contents.forEach(content => content.classList.remove('active'));
-      document.getElementById(contentId + '-content').classList.add('active');
+      navLinks.forEach(link => link.classList.remove('active'));
+      
+      const targetContent = document.getElementById(hash + '-content');
+      const targetLink = document.querySelector(`nav a[href="#${hash}"]`);
+      
+      if (targetContent && targetLink) {
+        targetContent.classList.add('active');
+        targetLink.classList.add('active');
+      }
     }
 
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
+    navLinks.forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        const hash = link.getAttribute('href').slice(1);
+        showContent(hash);
+        history.pushState(null, null, `#${hash}`);
+      });
+    });
+
+    menuToggle.addEventListener('click', () => {
       menu.classList.toggle('show');
       if (menu.classList.contains('show')) {
         setTimeout(() => menu.classList.remove('show'), 5000);
       }
-    }
+    });
 
-    function toggleMode() {
+    toggleModeLink.addEventListener('click', e => {
+      e.preventDefault();
       document.body.classList.toggle('light-mode');
-    }
+      menu.classList.remove('show');
+    });
 
     function detectAdblock() {
       const ad = document.createElement('div');
       ad.className = 'ad-banner';
-      ad.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -10000px; top: -10000px;';
+      ad.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -9999px;';
       document.body.appendChild(ad);
 
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         const status = document.getElementById('adblock-status');
-        if (!ad.offsetParent && !ad.offsetWidth && !ad.offsetHeight) {
-          status.innerText = 'Adblock Status: You have enabled Adblock.';
-          status.style.color = 'red';
+        if (!ad.offsetParent || ad.offsetWidth === 0 || ad.offsetHeight === 0) {
+          status.textContent = 'Adblock Status: Enabled';
+          status.style.color = '#ff4444';
         } else {
-          status.innerText = 'Adblock Status: Adblock is not detected.';
-          status.style.color = 'green';
+          status.textContent = 'Adblock Status: Disabled';
+          status.style.color = '#44ff44';
         }
         ad.remove();
-      }, 500);
+      });
     }
 
-    window.onload = detectAdblock;
+    window.addEventListener('load', () => {
+      detectAdblock();
+      const hash = window.location.hash.slice(1) || 'home';
+      showContent(hash);
+    });
+
+    window.addEventListener('popstate', () => {
+      const hash = window.location.hash.slice(1) || 'home';
+      showContent(hash);
+    });
   </script>
 </body>
 </html>
