@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Personal website of Om Kanna, showcasing portfolio, contact details, and social media presence." />
+  <meta name="keywords" content="Om Kanna, portfolio, artist, contact, social media" />
+  <meta name="author" content="Om Kanna" />
   <title>Om Kanna</title>
   <style>
     :root {
@@ -16,7 +19,7 @@
       --main-light: #f4f4f4;
       --accent: #ffcc00;
       --shadow: rgba(0, 0, 0, 0.8);
-      --transition: 0.5s ease;
+      --transition: 0.3s ease;
     }
 
     * {
@@ -29,13 +32,11 @@
       padding: 0;
       background-color: var(--bg-dark);
       color: var(--text-dark);
-      background-image: url('night.jpg');
       background-size: cover;
       background-position: center;
-      transition: background-image var(--transition), color var(--transition);
-      opacity: 0;
-      animation: fadeIn 1.2s ease-out forwards;
+      transition: background-color var(--transition), color var(--transition);
       scroll-behavior: smooth;
+      animation: fadeIn 1s ease-out forwards;
     }
 
     @keyframes fadeIn {
@@ -46,7 +47,6 @@
     body.light-mode {
       background-color: var(--bg-light);
       color: var(--text-light);
-      background-image: url('day.jpg');
     }
 
     header {
@@ -55,12 +55,6 @@
       text-align: center;
       padding: 1rem;
       transition: background-color var(--transition), color var(--transition);
-      animation: slideDown 0.8s ease-out forwards;
-    }
-
-    @keyframes slideDown {
-      from { transform: translateY(-100%); }
-      to { transform: translateY(0); }
     }
 
     body.light-mode header {
@@ -73,20 +67,37 @@
       padding: 1rem;
       text-align: center;
       transition: background-color var(--transition);
-      animation: slideDown 0.8s ease-out forwards;
     }
 
     nav a {
       color: inherit;
       text-decoration: none;
       margin: 0 1.5rem;
-      transition: color 0.3s ease;
       font-weight: 500;
       display: inline-block;
+      position: relative;
+      transition: color var(--transition), transform var(--transition);
     }
 
-    nav a:hover, nav a.active {
+    nav a:hover, nav a.active, nav a:focus {
       color: var(--accent);
+      transform: scale(1.05);
+      outline: none;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -5px;
+      left: 0;
+      background-color: var(--accent);
+      transition: width var(--transition);
+    }
+
+    nav a:hover::after, nav a.active::after, nav a:focus::after {
+      width: 100%;
     }
 
     @media (max-width: 600px) {
@@ -94,8 +105,8 @@
         padding: 0.8rem;
       }
       nav a {
-        margin: 0 1rem;
-        display: inline-block;
+        margin: 0 0.8rem;
+        font-size: 0.9rem;
       }
       header, footer {
         padding: 0.8rem;
@@ -103,9 +114,6 @@
       main {
         margin: 0.5rem;
         padding: 1rem;
-      }
-      .menu-toggle {
-        font-size: 1.2em;
       }
     }
 
@@ -117,12 +125,6 @@
       box-shadow: 0 4px 12px var(--shadow);
       border-radius: 12px;
       transition: background-color var(--transition);
-      animation: fadeInUp 0.8s ease-out forwards;
-    }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     body.light-mode main {
@@ -132,22 +134,27 @@
     .content-wrapper {
       display: none;
       opacity: 0;
-      transition: opacity 0.5s ease;
+      transition: opacity var(--transition);
     }
 
     .content-wrapper.active {
       display: block;
       opacity: 1;
+      animation: contentFadeIn var(--transition) forwards;
+    }
+
+    @keyframes contentFadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .content-wrapper h2,
     .content-wrapper p {
-      transition: transform 0.3s ease, color 0.3s ease;
+      transition: color var(--transition);
     }
 
     .content-wrapper h2:hover,
     .content-wrapper p:hover {
-      transform: translateY(-5px);
       color: var(--accent);
     }
 
@@ -164,22 +171,23 @@
     }
 
     .social-media a {
-      transition: transform 0.3s ease;
+      transition: transform var(--transition);
     }
 
-    .social-media a:hover {
+    .social-media a:hover, .social-media a:focus {
       transform: scale(1.1);
+      outline: none;
     }
 
     .social-media img {
       width: 32px;
       height: 32px;
       object-fit: contain;
-      opacity: 0.8;
-      transition: opacity 0.3s ease;
+      transition: opacity var(--transition);
+      loading: lazy;
     }
 
-    .social-media a:hover img {
+    .social-media a:hover img, .social-media a:focus img {
       opacity: 1;
     }
 
@@ -188,9 +196,7 @@
       color: var(--text-dark);
       text-align: center;
       padding: 1rem;
-      width: 100%;
       transition: background-color var(--transition);
-      animation: fadeIn 1.2s ease-out forwards;
     }
 
     body.light-mode footer {
@@ -208,8 +214,13 @@
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      transition: background-color var(--transition);
+      transition: background-color var(--transition), transform var(--transition);
       z-index: 1001;
+    }
+
+    .menu-toggle:hover, .menu-toggle:focus {
+      transform: scale(1.05);
+      outline: none;
     }
 
     body.light-mode .menu-toggle {
@@ -227,9 +238,7 @@
       box-shadow: 0 4px 12px var(--shadow);
       padding: 0.5rem;
       z-index: 1000;
-      opacity: 0;
-      transform: translateY(-20px);
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity var(--transition), transform var(--transition);
     }
 
     body.light-mode .menu {
@@ -248,12 +257,13 @@
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: 4px;
-      transition: background-color 0.3s ease;
+      transition: background-color var(--transition);
     }
 
-    .menu a:hover {
+    .menu a:hover, .menu a:focus {
       background-color: var(--accent);
       color: var(--text-light);
+      outline: none;
     }
 
     #adblock-status {
@@ -263,7 +273,6 @@
       background-color: var(--main-dark);
       border-radius: 4px;
       transition: background-color var(--transition);
-      animation: fadeIn 1.5s ease-out forwards;
     }
 
     body.light-mode #adblock-status {
@@ -273,18 +282,18 @@
     .animated-email-container {
       position: relative;
       display: inline-block;
-      overflow: visible;
       cursor: pointer;
     }
 
     .animated-email-container img {
       width: 50px;
       height: 50px;
-      transition: transform 0.3s ease;
+      transition: transform var(--transition);
+      loading: lazy;
     }
 
-    .animated-email-container:hover img {
-      transform: translateY(-30px);
+    .animated-email-container:hover img, .animated-email-container:focus img {
+      transform: translateY(-10px);
     }
 
     .animated-email-container .email-text {
@@ -297,175 +306,209 @@
       padding: 5px 0;
       border-radius: 5px;
       opacity: 0;
-      transition: opacity 0.3s ease, top 0.3s ease;
+      transition: opacity var(--transition), transform var(--transition);
       white-space: nowrap;
       font-size: 16px;
       text-align: center;
+      transform: translateY(10px);
     }
 
-    .animated-email-container:hover .email-text {
-      top: 100%;
+    .animated-email-container:hover .email-text, .animated-email-container:focus .email-text {
       opacity: 1;
+      transform: translateY(0);
     }
 
     .animated-email-container .email-text a {
       color: inherit;
       text-decoration: none;
       display: block;
-      width: 100%;
-      height: 100%;
     }
   </style>
 </head>
 <body>
-  <header>
+  <header role="banner">
     <h1>Om Kanna</h1>
   </header>
 
-  <nav role="navigation">
+  <nav role="navigation" aria-label="Main navigation">
     <a href="#home" class="active" aria-label="View Home section">Home</a>
     <a href="#about" aria-label="View About section">About</a>
     <a href="#portfolio" aria-label="View Portfolio section">Portfolio</a>
     <a href="#contact" aria-label="View Contact section">Contact</a>
   </nav>
 
-  <main id="main-content">
-    <div class="content-wrapper active" id="home-content">
-      <h2>Welcome to Om Kanna's personal website</h2>
+  <main id="main-content" role="main">
+    <section class="content-wrapper active" id="home-content" aria-labelledby="home-heading">
+      <h2 id="home-heading">Welcome to Om Kanna's personal website</h2>
       <p>Thank you for visiting this site. I am an adult.</p>
       <div class="email-container">
-        <div class="animated-email-container">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Contact via Email" />
+        <div class="animated-email-container" tabindex="0" aria-label="Contact via Email">
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email icon" />
           <div class="email-text">
             <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="content-wrapper" id="about-content">
-      <h2>About Me</h2>
+    <section class="content-wrapper" id="about-content" aria-labelledby="about-heading">
+      <h2 id="about-heading">About Me</h2>
       <p>
         My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use.
         Please follow my new Tumblr account or search "om kanna" on Bluesky to find me.
       </p>
-      <div class="social-media">
-        <a href="https://omkannanew.tumblr.com" target="_blank">
-          <img src="https://www.svgrepo.com/show/66655/tumblr-logo.svg" alt="Follow on Tumblr" />
+      <div class="social-media" role="navigation" aria-label="Social media links">
+        <a href="https://omkannanew.tumblr.com" target="_blank" aria-label="Follow on Tumblr">
+          <img src="https://www.svgrepo.com/show/66655/tumblr-logo.svg" alt="Tumblr logo" />
         </a>
-        <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank">
-          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Follow on Twitter" />
+        <a href="https://x.com/OmKanna_?t=fM2XMpJuXs1mLQHlU9z8gQ&s=09" target="_blank" aria-label="Follow on X">
+          <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="X logo" />
         </a>
-        <a href="https://www.pixiv.net/en/users/107279901" target="_blank">
-          <img src="https://www.pixiv.net/favicon.ico" alt="View on Pixiv" />
+        <a href="https://www.pixiv.net/en/users/107279901" target="_blank" aria-label="View on Pixiv">
+          <img src="https://www.pixiv.net/favicon.ico" alt="Pixiv logo" />
         </a>
-        <a href="https://bsky.app/profile/omkanna.bsky.social" target="_blank">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="Follow on Bluesky" />
+        <a href="https://bsky.app/profile/omkanna.bsky.social" target="_blank" aria-label="Follow on Bluesky">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="Bluesky logo" />
         </a>
       </div>
       <p>My name is Om Kanna, and I am...</p>
-    </div>
+    </section>
 
-    <div class="content-wrapper" id="portfolio-content">
-      <h2>Portfolio</h2>
+    <section class="content-wrapper" id="portfolio-content" aria-labelledby="portfolio-heading">
+      <h2 id="portfolio-heading">Portfolio</h2>
       <p>Feel free to use/reprint, but no AI or profit-making commercial use is allowed.</p>
-    </div>
+    </section>
 
-    <div class="content-wrapper" id="contact-content">
-      <h2>Contact Me</h2>
+    <section class="content-wrapper" id="contact-content" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Contact Me</h2>
       <p>
         Please contact me primarily via email:
-        <div class="animated-email-container">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Contact via Email" />
+        <div class="animated-email-container" tabindex="0" aria-label="Contact via Email">
+          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email icon" />
           <div class="email-text">
             <a href="mailto:ok8476980@gmail.com">ok8476980@gmail.com</a>
           </div>
         </div>
         or find the email link on the home page.
       </p>
-    </div>
+    </section>
   </main>
 
-  <footer>
+  <footer role="contentinfo">
     <p>© 2024-2025 Om Kanna</p>
-    <div id="adblock-status">Checking ad blocker status...</div>
+    <div id="adblock-status" aria-live="polite">Checking ad blocker status...</div>
   </footer>
 
-  <button class="menu-toggle" aria-label="Toggle menu">☰</button>
-  <div class="menu">
+  <button class="menu-toggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
+  <div class="menu" role="navigation" aria-label="Menu options">
     <a href="#toggle-mode" aria-label="Toggle between light and dark mode">Toggle Mode</a>
   </div>
 
   <script>
-    const navLinks = document.querySelectorAll('nav a');
-    const contents = document.querySelectorAll('.content-wrapper');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
-    const toggleModeLink = document.querySelector('.menu a[href="#toggle-mode"]');
-
-    function showContent(hash) {
-      contents.forEach(content => content.classList.remove('active'));
-      navLinks.forEach(link => link.classList.remove('active'));
-      
-      const targetContent = document.getElementById(hash + '-content');
-      const targetLink = document.querySelector(`nav a[href="#${hash}"]`);
-      
-      if (targetContent && targetLink) {
-        targetContent.classList.add('active');
-        targetLink.classList.add('active');
+    // Navigation and content management
+    class ContentManager {
+      constructor() {
+        this.navLinks = document.querySelectorAll('nav a');
+        this.contents = document.querySelectorAll('.content-wrapper');
+        this.initEventListeners();
+        this.loadInitialContent();
       }
-    }
 
-    navLinks.forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        const hash = link.getAttribute('href').slice(1);
-        showContent(hash);
-        history.pushState(null, null, `#${hash}`);
-      });
-    });
+      showContent(hash) {
+        this.contents.forEach(content => {
+          content.classList.remove('active');
+        });
+        this.navLinks.forEach(link => link.classList.remove('active'));
 
-    menuToggle.addEventListener('click', () => {
-      menu.classList.toggle('show');
-      if (menu.classList.contains('show')) {
-        setTimeout(() => menu.classList.remove('show'), 5000);
-      }
-    });
+        const targetContent = document.getElementById(hash + '-content');
+        const targetLink = document.querySelector(`nav a[href="#${hash}"]`);
 
-    toggleModeLink.addEventListener('click', e => {
-      e.preventDefault();
-      document.body.classList.toggle('light-mode');
-      menu.classList.remove('show');
-    });
-
-    function detectAdblock() {
-      const ad = document.createElement('div');
-      ad.className = 'ad-banner';
-      ad.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -9999px;';
-      document.body.appendChild(ad);
-
-      requestAnimationFrame(() => {
-        const status = document.getElementById('adblock-status');
-        if (!ad.offsetParent || ad.offsetWidth === 0 || ad.offsetHeight === 0) {
-          status.textContent = 'Adblock Status: Enabled';
-          status.style.color = '#ff4444';
-        } else {
-          status.textContent = 'Adblock Status: Disabled';
-          status.style.color = '#44ff44';
+        if (targetContent && targetLink) {
+          targetContent.classList.add('active');
+          targetLink.classList.add('active');
         }
-        ad.remove();
-      });
+      }
+
+      initEventListeners() {
+        this.navLinks.forEach(link => {
+          link.addEventListener('click', e => {
+            e.preventDefault();
+            const hash = link.getAttribute('href').slice(1);
+            this.showContent(hash);
+            history.pushState(null, null, `#${hash}`);
+          });
+        });
+
+        window.addEventListener('popstate', () => {
+          const hash = window.location.hash.slice(1) || 'home';
+          this.showContent(hash);
+        });
+      }
+
+      loadInitialContent() {
+        const hash = window.location.hash.slice(1) || 'home';
+        this.showContent(hash);
+      }
     }
 
-    window.addEventListener('load', () => {
-      detectAdblock();
-      const hash = window.location.hash.slice(1) || 'home';
-      showContent(hash);
-    });
+    // Menu and mode toggle
+    class MenuManager {
+      constructor() {
+        this.menuToggle = document.querySelector('.menu-toggle');
+        this.menu = document.querySelector('.menu');
+        this.toggleModeLink = document.querySelector('.menu a[href="#toggle-mode"]');
+        this.initEventListeners();
+      }
 
-    window.addEventListener('popstate', () => {
-      const hash = window.location.hash.slice(1) || 'home';
-      showContent(hash);
+      initEventListeners() {
+        this.menuToggle.addEventListener('click', () => {
+          const isExpanded = this.menu.classList.toggle('show');
+          this.menuToggle.setAttribute('aria-expanded', isExpanded);
+          if (isExpanded) {
+            setTimeout(() => this.menu.classList.remove('show'), 5000);
+          }
+        });
+
+        this.toggleModeLink.addEventListener('click', e => {
+          e.preventDefault();
+          document.body.classList.toggle('light-mode');
+          this.menu.classList.remove('show');
+          this.menuToggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+    }
+
+    // Adblock detection
+    class AdblockDetector {
+      constructor() {
+        this.statusElement = document.getElementById('adblock-status');
+        this.detect();
+      }
+
+      detect() {
+        const ad = document.createElement('div');
+        ad.className = 'ad-banner';
+        ad.style.cssText = 'width: 1px; height: 1px; position: absolute; left: -9999px;';
+        document.body.appendChild(ad);
+
+        requestAnimationFrame(() => {
+          if (!ad.offsetParent || ad.offsetWidth === 0 || ad.offsetHeight === 0) {
+            this.statusElement.textContent = 'Adblock Status: Enabled';
+            this.statusElement.style.color = '#ff4444';
+          } else {
+            this.statusElement.textContent = 'Adblock Status: Disabled';
+            this.statusElement.style.color = '#44ff44';
+          }
+          ad.remove();
+        });
+      }
+    }
+
+    // Initialize components
+    window.addEventListener('load', () => {
+      new ContentManager();
+      new MenuManager();
+      new AdblockDetector();
     });
   </script>
 </body>
