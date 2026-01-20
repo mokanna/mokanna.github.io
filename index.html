@@ -341,6 +341,11 @@
     <section class="content-wrapper active" id="home-content" aria-labelledby="home-heading">
       <h2 id="home-heading">Welcome to Om Kanna's personal website</h2>
       <p>Thank you for visiting this site. I am an adult.</p>
+
+      <p style="margin-top:1rem;">
+        If you would like to commission artwork, please contact via email or search "om kanna" on Lingjie (临界).
+      </p>
+
       <div class="email-container">
         <div class="animated-email-container" tabindex="0" aria-label="Contact via Email">
           <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email icon" />
@@ -397,7 +402,7 @@
   </main>
 
   <footer role="contentinfo">
-    <p>© 2024-2025 Om Kanna</p>
+    <p>© 2024-2026 Om Kanna</p>
     <div id="adblock-status" aria-live="polite">Checking ad blocker status...</div>
   </footer>
 
@@ -407,7 +412,6 @@
   </div>
 
   <script>
-    // Navigation and content management
     class ContentManager {
       constructor() {
         this.navLinks = document.querySelectorAll('nav a');
@@ -453,7 +457,6 @@
       }
     }
 
-    // Menu and mode toggle
     class MenuManager {
       constructor() {
         this.menuToggle = document.querySelector('.menu-toggle');
@@ -480,7 +483,6 @@
       }
     }
 
-    // Adblock detection
     class AdblockDetector {
       constructor() {
         this.statusElement = document.getElementById('adblock-status');
@@ -506,7 +508,6 @@
       }
     }
 
-    // Initialize components
     window.addEventListener('load', () => {
       new ContentManager();
       new MenuManager();
