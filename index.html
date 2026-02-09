@@ -8,12 +8,12 @@
   <meta name="author" content="Om Kanna" />
   <title>Om Kanna</title>
   <!-- 引入 Google 字体和图标 -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
   
   <style>
     :root {
-      /* Google Light Palette */
+      /* Google Material 3 调色板 */
       --google-blue: #1a73e8;
       --bg-body: #f8f9fa;
       --bg-card: #ffffff;
@@ -23,21 +23,23 @@
       --nav-active: #1a73e8;
       --fab-bg: #ffffff;
       --fab-icon: #1a73e8;
-      --shadow: 0 1px 3px 0 rgba(60,64,67,.30), 0 4px 8px 3px rgba(60,64,67,.15);
-      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      /* 更深邃的阴影系统 */
+      --shadow-low: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
+      --shadow-high: 0 4px 6px 0 rgba(60,64,67,.30), 0 8px 12px 6px rgba(60,64,67,.15);
+      --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     body.dark-mode {
-      /* Google Dark Palette */
-      --bg-body: #202124;
-      --bg-card: #2d2e31;
+      --bg-body: #121212;
+      --bg-card: #1e1e1e;
       --text-main: #e8eaed;
       --text-sub: #bdc1c6;
       --border-color: #3c4043;
       --nav-active: #8ab4f8;
-      --fab-bg: #3c4043;
-      --fab-icon: #fbbc05; /* 切换为黄色太阳感 */
-      --shadow: 0 4px 4px 0 rgba(0,0,0,.30), 0 8px 12px 6px rgba(0,0,0,.15);
+      --fab-bg: #2d2e31;
+      --fab-icon: #fbbc05;
+      --shadow-low: 0 1px 3px rgba(0,0,0,0.5);
+      --shadow-high: 0 8px 16px rgba(0,0,0,0.5);
     }
 
     * {
@@ -46,71 +48,62 @@
     }
 
     body {
-      font-family: 'Roboto', Arial, sans-serif;
+      font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
       margin: 0;
       padding: 0;
       background-color: var(--bg-body);
       color: var(--text-main);
       transition: background-color var(--transition);
-      line-height: 1.6;
+      line-height: 1.8; /* 增加行高，提升阅读舒适度 */
     }
 
-    /* --- Header & Top Bar --- */
-    header {
-      background-color: var(--bg-card);
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border-color);
+    /* --- Header & Nav (固定置顶) --- */
+    .top-container {
       position: sticky;
       top: 0;
       z-index: 100;
+      background-color: var(--bg-card);
+      box-shadow: 0 1px 0 var(--border-color);
+    }
+
+    header {
+      padding: 24px 10%;
+      display: flex;
+      align-items: center;
     }
 
     header h1 {
       margin: 0;
-      font-size: 22px;
-      font-weight: 400;
+      font-size: 26px;
+      font-weight: 500;
       color: var(--text-main);
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
 
     header h1::before {
       content: "account_circle";
       font-family: 'Material Icons Outlined';
       color: var(--google-blue);
-      font-size: 32px;
+      font-size: 36px;
     }
 
-    /* --- Navigation --- */
     nav {
-      background-color: var(--bg-card);
       padding: 0 10%;
-      border-bottom: 1px solid var(--border-color);
       display: flex;
       overflow-x: auto;
       scrollbar-width: none;
     }
 
-    nav::-webkit-scrollbar { display: none; }
-
     nav a {
       color: var(--text-sub);
       text-decoration: none;
-      padding: 12px 20px;
-      font-size: 14px;
+      padding: 16px 24px;
+      font-size: 15px;
       font-weight: 500;
       position: relative;
-      white-space: nowrap;
       transition: var(--transition);
-    }
-
-    nav a:hover {
-      background-color: rgba(60, 64, 67, 0.04);
-      color: var(--text-main);
     }
 
     nav a.active {
@@ -121,18 +114,18 @@
       content: '';
       position: absolute;
       bottom: 0;
-      left: 15%;
-      width: 70%;
-      height: 3px;
+      left: 0;
+      width: 100%;
+      height: 4px;
       background-color: var(--nav-active);
-      border-radius: 3px 3px 0 0;
+      border-radius: 4px 4px 0 0;
     }
 
-    /* --- Main Content --- */
+    /* --- Main Content (大卡片设计) --- */
     main {
-      max-width: 800px;
-      margin: 24px auto;
-      padding: 0 16px;
+      max-width: 960px; /* 加宽容器 */
+      margin: 40px auto;
+      padding: 0 24px;
       min-height: 70vh;
     }
 
@@ -140,98 +133,114 @@
       display: none;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 32px;
-      animation: slideUp 0.4s ease;
-      box-shadow: 0 1px 2px 0 rgba(60,64,67,.30);
+      border-radius: 24px; /* 更大的圆角 */
+      padding: 60px; /* 大幅增加内边距 */
+      box-shadow: var(--shadow-low);
+      transition: var(--transition);
     }
 
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* 卡片悬停效果 */
+    .content-wrapper:hover {
+      box-shadow: var(--shadow-high);
+      transform: translateY(-4px);
     }
 
     .content-wrapper.active {
       display: block;
+      animation: cardEntrance 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    }
+
+    /* 入场动画：整体向上滑动并淡入 */
+    @keyframes cardEntrance {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* 子元素交错动画 */
+    .content-wrapper > * {
+      animation: contentFadeIn 0.8s ease backwards;
+    }
+    .content-wrapper > h2 { animation-delay: 0.1s; }
+    .content-wrapper > p { animation-delay: 0.2s; }
+    .content-wrapper > div { animation-delay: 0.3s; }
+
+    @keyframes contentFadeIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     h2 {
-      font-size: 24px;
-      font-weight: 400;
-      margin-top: 0;
-      margin-bottom: 20px;
-      color: var(--text-main);
+      font-size: 32px;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
     }
 
     p {
+      font-size: 17px;
       color: var(--text-sub);
-      font-size: 15px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
-    /* --- Google Style Chips --- */
+    /* --- Google Style Chips (互动按钮) --- */
     .google-chip {
       display: inline-flex;
       align-items: center;
-      padding: 8px 16px;
+      padding: 12px 24px; /* 增大点击区域 */
       border: 1px solid var(--border-color);
       border-radius: 100px;
       background: var(--bg-card);
       color: var(--text-main);
       text-decoration: none;
-      font-size: 14px;
+      font-size: 15px;
+      font-weight: 500;
       transition: var(--transition);
-      cursor: pointer;
-      margin-bottom: 8px;
+      margin: 0 12px 12px 0;
     }
 
     .google-chip:hover {
-      background-color: rgba(60, 64, 67, 0.04);
-      box-shadow: 0 1px 2px rgba(60,64,67,0.3);
+      background-color: var(--google-blue);
+      color: white;
+      border-color: var(--google-blue);
+      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
     }
 
     .google-chip img {
-      width: 18px;
-      height: 18px;
-      margin-right: 10px;
-    }
-
-    .email-text {
-      font-weight: 500;
-      color: var(--google-blue);
+      width: 20px;
+      height: 20px;
+      margin-right: 12px;
     }
 
     /* --- Footer --- */
     footer {
-      margin-top: 40px;
-      padding: 32px 24px;
-      border-top: 1px solid var(--border-color);
+      margin-top: 80px;
+      padding: 48px 24px;
       text-align: center;
       color: var(--text-sub);
-      font-size: 13px;
+      border-top: 1px solid var(--border-color);
     }
 
     #adblock-status {
       display: inline-block;
-      margin-top: 12px;
-      padding: 4px 12px;
-      border-radius: 4px;
-      font-size: 12px;
-      background: rgba(0,0,0,0.05);
+      margin-top: 16px;
+      padding: 6px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      background: rgba(0,0,0,0.03);
+      font-weight: 500;
     }
 
-    /* --- 直接切换按钮 (One-Click Theme Toggle FAB) --- */
+    /* --- FAB 主题切换按钮 --- */
     .theme-toggle-fab {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
+      bottom: 32px;
+      right: 32px;
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
       background-color: var(--fab-bg);
       color: var(--fab-icon);
       border: none;
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow-high);
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -241,40 +250,39 @@
     }
 
     .theme-toggle-fab:hover {
-      transform: scale(1.08);
-    }
-
-    .theme-toggle-fab:active {
-      transform: scale(0.95);
+      transform: scale(1.1) rotate(15deg);
     }
 
     .theme-toggle-fab .material-icons-outlined {
-      font-size: 24px;
-      transition: transform 0.5s ease;
+      font-size: 28px;
     }
 
     /* 响应式调整 */
     @media (max-width: 600px) {
+      .content-wrapper { padding: 32px 24px; }
+      h2 { font-size: 26px; }
+      header { padding: 20px 5%; }
       nav { padding: 0 5%; }
-      .content-wrapper { padding: 24px; }
     }
   </style>
 </head>
 <body>
 
-  <header role="banner">
-    <h1>Om Kanna</h1>
-  </header>
+  <div class="top-container">
+    <header role="banner">
+      <h1>Om Kanna</h1>
+    </header>
 
-  <nav role="navigation" aria-label="Main navigation">
-    <a href="#home" class="active">Home</a>
-    <a href="#about">About</a>
-    <a href="#portfolio">Portfolio</a>
-    <a href="#contact">Contact</a>
-  </nav>
+    <nav role="navigation">
+      <a href="#home" class="active">Home</a>
+      <a href="#about">About</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
 
-  <main id="main-content" role="main">
-    <!-- Home Section -->
+  <main id="main-content">
+    <!-- Home -->
     <section class="content-wrapper active" id="home-content">
       <h2>Welcome to Om Kanna's personal website</h2>
       <p>Thank you for visiting this site. I am an adult.</p>
@@ -283,18 +291,18 @@
       <div class="email-container">
         <a href="mailto:ok8476980@gmail.com" class="google-chip">
           <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-          <span class="email-text">ok8476980@gmail.com</span>
+          <span>ok8476980@gmail.com</span>
         </a>
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- About -->
     <section class="content-wrapper" id="about-content">
       <h2>About Me</h2>
       <p>
         My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use.
         Please follow my new Tumblr account or search "om kanna" on Bluesky to find me.
-        I also use a <strong>LOFTER</strong> account mainly for sharing artwork related to games from Mainland China.
+        I also use a <strong>LOFTER</strong> account mainly for sharing artwork.
       </p>
       <div class="social-media">
         <a href="https://omkannanew.tumblr.com" target="_blank" class="google-chip">
@@ -310,116 +318,102 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="B" /> Bluesky
         </a>
       </div>
-      <p style="margin-top: 15px;">My name is Om Kanna, and I am...</p>
+      <p style="margin-top: 20px;">My name is Om Kanna, and I am...</p>
     </section>
 
-    <!-- Portfolio Section -->
+    <!-- Portfolio -->
     <section class="content-wrapper" id="portfolio-content">
       <h2>Portfolio</h2>
-      <div style="background: rgba(251, 188, 5, 0.1); border-radius: 8px; padding: 12px; border-left: 4px solid var(--nav-active);">
-        <p style="margin:0;">Feel free to use/reprint, but no AI or profit-making commercial use is allowed.</p>
+      <div style="background: rgba(26, 115, 232, 0.05); border-radius: 16px; padding: 32px; border: 1px dashed var(--google-blue);">
+        <p style="margin:0; color: var(--google-blue); font-weight: 500;">
+          Feel free to use/reprint, but no AI or profit-making commercial use is allowed.
+        </p>
       </div>
     </section>
 
-    <!-- Contact Section -->
+    <!-- Contact -->
     <section class="content-wrapper" id="contact-content">
       <h2>Contact Me</h2>
       <p>Please contact me primarily via email:</p>
       <a href="mailto:ok8476980@gmail.com" class="google-chip">
         <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-        <span class="email-text">ok8476980@gmail.com</span>
+        <span>ok8476980@gmail.com</span>
       </a>
     </section>
   </main>
 
-  <footer role="contentinfo">
+  <footer>
     <p>© 2024-2026 Om Kanna</p>
-    <div id="adblock-status">Checking...</div>
+    <div id="adblock-status">System Checking...</div>
   </footer>
 
-  <!-- 直接切换明暗模式的悬浮按钮 -->
-  <button class="theme-toggle-fab" id="theme-btn" aria-label="Toggle light/dark mode">
+  <button class="theme-toggle-fab" id="theme-btn" aria-label="Toggle Theme">
     <span class="material-icons-outlined">dark_mode</span>
   </button>
 
   <script>
-    // 1. 内容管理 (Tabs 切换)
-    class ContentManager {
+    class App {
       constructor() {
-        this.navLinks = document.querySelectorAll('nav a');
-        this.contents = document.querySelectorAll('.content-wrapper');
-        this.init();
+        this.initTheme();
+        this.initNavigation();
+        this.initAdblock();
       }
-      init() {
-        this.navLinks.forEach(link => {
-          link.addEventListener('click', e => {
-            e.preventDefault();
-            const hash = link.getAttribute('href').slice(1);
-            this.show(hash);
-            history.pushState(null, null, `#${hash}`);
-          });
+
+      initTheme() {
+        const btn = document.getElementById('theme-btn');
+        const icon = btn.querySelector('span');
+        btn.addEventListener('click', () => {
+          const isDark = document.body.classList.toggle('dark-mode');
+          icon.textContent = isDark ? 'light_mode' : 'dark_mode';
+          btn.style.transform = 'scale(0.9) rotate(45deg)';
+          setTimeout(() => btn.style.transform = '', 200);
         });
-        window.addEventListener('popstate', () => this.show(window.location.hash.slice(1) || 'home'));
-        this.show(window.location.hash.slice(1) || 'home');
       }
-      show(hash) {
-        this.contents.forEach(c => c.classList.remove('active'));
-        this.navLinks.forEach(l => l.classList.remove('active'));
-        const target = document.getElementById(hash + '-content');
-        const link = document.querySelector(`nav a[href="#${hash}"]`);
-        if (target && link) {
-          target.classList.add('active');
-          link.classList.add('active');
-        }
-      }
-    }
 
-    // 2. 主题管理 (一键切换)
-    class ThemeManager {
-      constructor() {
-        this.btn = document.getElementById('theme-btn');
-        this.icon = this.btn.querySelector('.material-icons-outlined');
-        this.init();
-      }
-      init() {
-        this.btn.addEventListener('click', () => this.toggle());
-      }
-      toggle() {
-        const isDark = document.body.classList.toggle('dark-mode');
-        // 切换图标动画
-        this.icon.style.transform = 'rotate(360deg)';
-        setTimeout(() => {
-          this.icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-          this.icon.style.transform = 'rotate(0deg)';
-        }, 200);
-      }
-    }
+      initNavigation() {
+        const links = document.querySelectorAll('nav a');
+        const contents = document.querySelectorAll('.content-wrapper');
+        
+        const update = () => {
+          const hash = window.location.hash.slice(1) || 'home';
+          contents.forEach(c => c.classList.remove('active'));
+          links.forEach(l => l.classList.remove('active'));
+          
+          const target = document.getElementById(hash + '-content');
+          const link = document.querySelector(`nav a[href="#${hash}"]`);
+          if (target && link) {
+            target.classList.add('active');
+            link.classList.add('active');
+          }
+        };
 
-    // 3. 广告拦截检测
-    class AdblockDetector {
-      constructor() {
-        this.el = document.getElementById('adblock-status');
-        this.detect();
+        links.forEach(l => l.addEventListener('click', e => {
+          e.preventDefault();
+          window.location.hash = l.getAttribute('href');
+          update();
+        }));
+
+        window.addEventListener('popstate', update);
+        update();
       }
-      detect() {
+
+      initAdblock() {
+        const status = document.getElementById('adblock-status');
         const ad = document.createElement('div');
         ad.className = 'ad-banner';
         ad.style.cssText = 'width:1px;height:1px;position:absolute;left:-999px;';
         document.body.appendChild(ad);
         requestAnimationFrame(() => {
           const blocked = !ad.offsetParent || ad.offsetWidth === 0;
-          this.el.textContent = 'Adblock: ' + (blocked ? 'Enabled' : 'Disabled');
-          this.el.style.color = blocked ? '#d93025' : '#188038';
+          status.textContent = 'Protection: ' + (blocked ? 'Shield Active' : 'Shield Standard');
+          status.style.background = blocked ? 'rgba(217, 48, 37, 0.1)' : 'rgba(24, 128, 56, 0.1)';
+          status.style.color = blocked ? '#d93025' : '#188038';
           ad.remove();
         });
       }
     }
 
-    window.addEventListener('load', () => {
-      new ContentManager();
-      new ThemeManager();
-      new AdblockDetector();
-    });
+    window.addEventListener('load', () => new App());
   </script>
 </body>
 </html>
