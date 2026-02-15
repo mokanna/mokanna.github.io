@@ -23,7 +23,6 @@
       --nav-active: #1a73e8;
       --fab-bg: #ffffff;
       --fab-icon: #1a73e8;
-      /* 更深邃的阴影系统 */
       --shadow-low: 0 1px 2px 0 rgba(60,64,67,.30), 0 1px 3px 1px rgba(60,64,67,.15);
       --shadow-high: 0 4px 6px 0 rgba(60,64,67,.30), 0 8px 12px 6px rgba(60,64,67,.15);
       --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -38,232 +37,84 @@
       --nav-active: #8ab4f8;
       --fab-bg: #2d2e31;
       --fab-icon: #fbbc05;
-      --shadow-low: 0 1px 3px rgba(0,0,0,0.5);
-      --shadow-high: 0 8px 16px rgba(0,0,0,0.5);
     }
 
-    * {
-      box-sizing: border-box;
-      -webkit-font-smoothing: antialiased;
-    }
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
 
     body {
       font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
       background-color: var(--bg-body);
       color: var(--text-main);
       transition: background-color var(--transition);
-      line-height: 1.8; /* 增加行高，提升阅读舒适度 */
+      line-height: 1.8;
     }
 
-    /* --- Header & Nav (固定置顶) --- */
     .top-container {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: sticky; top: 0; z-index: 100;
       background-color: var(--bg-card);
       box-shadow: 0 1px 0 var(--border-color);
     }
 
-    header {
-      padding: 24px 10%;
-      display: flex;
-      align-items: center;
-    }
+    header { padding: 24px 10%; display: flex; align-items: center; }
+    header h1 { margin: 0; font-size: 26px; font-weight: 500; display: flex; align-items: center; gap: 16px; }
+    header h1::before { content: "account_circle"; font-family: 'Material Icons Outlined'; color: var(--google-blue); font-size: 36px; }
 
-    header h1 {
-      margin: 0;
-      font-size: 26px;
-      font-weight: 500;
-      color: var(--text-main);
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+    nav { padding: 0 10%; display: flex; overflow-x: auto; scrollbar-width: none; }
+    nav a { color: var(--text-sub); text-decoration: none; padding: 16px 24px; font-size: 15px; font-weight: 500; position: relative; transition: var(--transition); }
+    nav a.active { color: var(--nav-active); }
+    nav a.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 4px; background-color: var(--nav-active); border-radius: 4px 4px 0 0; }
 
-    header h1::before {
-      content: "account_circle";
-      font-family: 'Material Icons Outlined';
-      color: var(--google-blue);
-      font-size: 36px;
-    }
-
-    nav {
-      padding: 0 10%;
-      display: flex;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    nav a {
-      color: var(--text-sub);
-      text-decoration: none;
-      padding: 16px 24px;
-      font-size: 15px;
-      font-weight: 500;
-      position: relative;
-      transition: var(--transition);
-    }
-
-    nav a.active {
-      color: var(--nav-active);
-    }
-
-    nav a.active::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background-color: var(--nav-active);
-      border-radius: 4px 4px 0 0;
-    }
-
-    /* --- Main Content (大卡片设计) --- */
-    main {
-      max-width: 960px; /* 加宽容器 */
-      margin: 40px auto;
-      padding: 0 24px;
-      min-height: 70vh;
-    }
+    main { max-width: 960px; margin: 40px auto; padding: 0 24px; min-height: 70vh; }
 
     .content-wrapper {
-      display: none;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 24px; /* 更大的圆角 */
-      padding: 60px; /* 大幅增加内边距 */
-      box-shadow: var(--shadow-low);
-      transition: var(--transition);
+      display: none; background: var(--bg-card); border: 1px solid var(--border-color);
+      border-radius: 24px; padding: 60px; box-shadow: var(--shadow-low); transition: var(--transition);
     }
+    .content-wrapper.active { display: block; animation: cardEntrance 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
 
-    /* 卡片悬停效果 */
-    .content-wrapper:hover {
-      box-shadow: var(--shadow-high);
-      transform: translateY(-4px);
+    @keyframes cardEntrance { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+    h2 { font-size: 32px; margin-bottom: 24px; letter-spacing: -0.5px; }
+    p { font-size: 17px; color: var(--text-sub); margin-bottom: 24px; }
+
+    /* --- Commission Section Style --- */
+    .commission-section {
+      margin-top: 40px; display: grid; gap: 20px;
     }
-
-    .content-wrapper.active {
-      display: block;
-      animation: cardEntrance 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+    .commission-card {
+      border: 1px solid var(--border-color); padding: 24px; border-radius: 16px;
+      transition: var(--transition); background: rgba(0,0,0,0.02);
     }
-
-    /* 入场动画：整体向上滑动并淡入 */
-    @keyframes cardEntrance {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    body.dark-mode .commission-card { background: rgba(255,255,255,0.03); }
+    .commission-card:hover { border-color: var(--google-blue); background: var(--bg-card); box-shadow: var(--shadow-low); }
+    .card-title { font-weight: 500; font-size: 18px; margin-bottom: 8px; color: var(--google-blue); display: flex; align-items: center; gap: 8px; }
+    
+    .payment-tag {
+      display: inline-block; padding: 2px 10px; border-radius: 6px; background: rgba(0,0,0,0.05);
+      font-size: 13px; margin-right: 6px; margin-top: 8px; font-weight: 500;
     }
+    body.dark-mode .payment-tag { background: rgba(255,255,255,0.1); }
 
-    /* 子元素交错动画 */
-    .content-wrapper > * {
-      animation: contentFadeIn 0.8s ease backwards;
-    }
-    .content-wrapper > h2 { animation-delay: 0.1s; }
-    .content-wrapper > p { animation-delay: 0.2s; }
-    .content-wrapper > div { animation-delay: 0.3s; }
-
-    @keyframes contentFadeIn {
-      from { opacity: 0; transform: translateX(-20px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    h2 {
-      font-size: 32px;
-      margin-bottom: 24px;
-      letter-spacing: -0.5px;
-    }
-
-    p {
-      font-size: 17px;
-      color: var(--text-sub);
-      margin-bottom: 24px;
-    }
-
-    /* --- Google Style Chips (互动按钮) --- */
     .google-chip {
-      display: inline-flex;
-      align-items: center;
-      padding: 12px 24px; /* 增大点击区域 */
-      border: 1px solid var(--border-color);
-      border-radius: 100px;
-      background: var(--bg-card);
-      color: var(--text-main);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      transition: var(--transition);
-      margin: 0 12px 12px 0;
+      display: inline-flex; align-items: center; padding: 12px 24px;
+      border: 1px solid var(--border-color); border-radius: 100px;
+      background: var(--bg-card); color: var(--text-main); text-decoration: none;
+      font-size: 15px; font-weight: 500; transition: var(--transition); margin: 8px 12px 12px 0;
     }
+    .google-chip:hover { background-color: var(--google-blue); color: white; border-color: var(--google-blue); box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3); }
+    .google-chip img { width: 20px; height: 20px; margin-right: 12px; }
 
-    .google-chip:hover {
-      background-color: var(--google-blue);
-      color: white;
-      border-color: var(--google-blue);
-      box-shadow: 0 4px 12px rgba(26, 115, 232, 0.3);
-    }
+    footer { margin-top: 80px; padding: 48px 24px; text-align: center; color: var(--text-sub); border-top: 1px solid var(--border-color); }
 
-    .google-chip img {
-      width: 20px;
-      height: 20px;
-      margin-right: 12px;
-    }
-
-    /* --- Footer --- */
-    footer {
-      margin-top: 80px;
-      padding: 48px 24px;
-      text-align: center;
-      color: var(--text-sub);
-      border-top: 1px solid var(--border-color);
-    }
-
-    #adblock-status {
-      display: inline-block;
-      margin-top: 16px;
-      padding: 6px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      background: rgba(0,0,0,0.03);
-      font-weight: 500;
-    }
-
-    /* --- FAB 主题切换按钮 --- */
     .theme-toggle-fab {
-      position: fixed;
-      bottom: 32px;
-      right: 32px;
-      width: 64px;
-      height: 64px;
-      border-radius: 20px;
-      background-color: var(--fab-bg);
-      color: var(--fab-icon);
-      border: none;
-      box-shadow: var(--shadow-high);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: var(--transition);
-      z-index: 1000;
+      position: fixed; bottom: 32px; right: 32px; width: 64px; height: 64px; border-radius: 20px;
+      background-color: var(--fab-bg); color: var(--fab-icon); border: none; box-shadow: var(--shadow-high);
+      cursor: pointer; display: flex; align-items: center; justify-content: center; transition: var(--transition); z-index: 1000;
     }
+    .theme-toggle-fab:hover { transform: scale(1.1) rotate(15deg); }
 
-    .theme-toggle-fab:hover {
-      transform: scale(1.1) rotate(15deg);
-    }
-
-    .theme-toggle-fab .material-icons-outlined {
-      font-size: 28px;
-    }
-
-    /* 响应式调整 */
-    @media (max-width: 600px) {
-      .content-wrapper { padding: 32px 24px; }
-      h2 { font-size: 26px; }
-      header { padding: 20px 5%; }
-      nav { padding: 0 5%; }
-    }
+    @media (max-width: 600px) { .content-wrapper { padding: 32px 24px; } header { padding: 20px 5%; } nav { padding: 0 5%; } }
   </style>
 </head>
 <body>
@@ -272,7 +123,6 @@
     <header role="banner">
       <h1>Om Kanna</h1>
     </header>
-
     <nav role="navigation">
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
@@ -282,28 +132,55 @@
   </div>
 
   <main id="main-content">
-    <!-- Home -->
+    <!-- Home Section -->
     <section class="content-wrapper active" id="home-content">
       <h2>Welcome to Om Kanna's personal website</h2>
-      <p>Thank you for visiting this site. I am an adult.</p>
-      <p>If you would like to commission artwork, please contact via email or search "om kanna" on Lingjie (临界).</p>
+      <p>Thank you for visiting this site. I am an artist focused on high-quality artwork.</p>
+      
+      <!-- Commission Guidelines (Modified) -->
+      <h3 style="font-weight: 500; margin-top: 40px; border-bottom: 2px solid var(--google-blue); display: inline-block;">Commissioning Guidelines</h3>
+      <p style="margin-top: 10px;">You can commission my work through the following platforms:</p>
+      
+      <div class="commission-section">
+        <!-- Overseas -->
+        <div class="commission-card">
+          <div class="card-title"><span class="material-icons-outlined">public</span> International Clients</div>
+          <p style="font-size: 15px; margin-bottom: 12px;">For clients outside of Mainland China, please visit my Ko-fi page:</p>
+          <a href="https://ko-fi.com/omkanna" target="_blank" class="google-chip">
+            <img src="https://ko-fi.com/favicon.ico" alt="K" /> ko-fi.com/omkanna
+          </a>
+        </div>
 
-      <div class="email-container">
-        <a href="mailto:ok8476980@gmail.com" class="google-chip">
-          <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
-          <span>ok8476980@gmail.com</span>
-        </a>
+        <!-- China -->
+        <div class="commission-card">
+          <div class="card-title"><span class="material-icons-outlined">place</span> Mainland China Clients</div>
+          <p style="font-size: 15px; margin-bottom: 12px;">For domestic commissions, please find me on Lingjie (临界):</p>
+          <a href="https://linjieapp.com/profile?userId=915675018778686039" target="_blank" class="google-chip">
+            <span class="material-icons-outlined" style="margin-right: 8px;">link</span> Linjie Profile
+          </a>
+        </div>
+
+        <!-- Offline/Direct -->
+        <div class="commission-card">
+          <div class="card-title"><span class="material-icons-outlined">mail</span> Direct Inquiry & Offline</div>
+          <p style="font-size: 15px; margin-bottom: 12px;">Contact me directly via email for private commissions. Supported payment methods:</p>
+          <div class="payment-methods">
+            <span class="payment-tag">PayPal</span>
+            <span class="payment-tag">FPS</span>
+            <span class="payment-tag">Alipay</span>
+            <span class="payment-tag">WeChat Pay</span>
+          </div>
+          <a href="mailto:ok8476980@gmail.com" class="google-chip" style="margin-top: 20px;">
+            <span class="material-icons-outlined" style="margin-right: 8px;">alternate_email</span> ok8476980@gmail.com
+          </a>
+        </div>
       </div>
     </section>
 
-    <!-- About -->
+    <!-- About Section -->
     <section class="content-wrapper" id="about-content">
       <h2>About Me</h2>
-      <p>
-        My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use.
-        Please follow my new Tumblr account or search "om kanna" on Bluesky to find me.
-        I also use a <strong>LOFTER</strong> account mainly for sharing artwork.
-      </p>
+      <p>My Xiaohongshu account has been canceled, and my previous Tumblr account is no longer in use. Please follow my new social presence below.</p>
       <div class="social-media">
         <a href="https://omkannanew.tumblr.com" target="_blank" class="google-chip">
           <img src="https://www.svgrepo.com/show/66655/tumblr-logo.svg" alt="T" /> Tumblr
@@ -318,10 +195,9 @@
           <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Bluesky_Logo.svg/1200px-Bluesky_Logo.svg.png" alt="B" /> Bluesky
         </a>
       </div>
-      <p style="margin-top: 20px;">My name is Om Kanna, and I am...</p>
     </section>
 
-    <!-- Portfolio -->
+    <!-- Portfolio Section -->
     <section class="content-wrapper" id="portfolio-content">
       <h2>Portfolio</h2>
       <div style="background: rgba(26, 115, 232, 0.05); border-radius: 16px; padding: 32px; border: 1px dashed var(--google-blue);">
@@ -331,12 +207,12 @@
       </div>
     </section>
 
-    <!-- Contact -->
+    <!-- Contact Section -->
     <section class="content-wrapper" id="contact-content">
       <h2>Contact Me</h2>
-      <p>Please contact me primarily via email:</p>
+      <p>The best way to reach me is through email:</p>
       <a href="mailto:ok8476980@gmail.com" class="google-chip">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" />
+        <span class="material-icons-outlined" style="margin-right: 12px;">alternate_email</span>
         <span>ok8476980@gmail.com</span>
       </a>
     </section>
@@ -344,10 +220,10 @@
 
   <footer>
     <p>© 2024-2026 Om Kanna</p>
-    <div id="adblock-status">System Checking...</div>
+    <div id="adblock-status" style="display: inline-block; margin-top: 16px; padding: 6px 16px; border-radius: 8px; font-size: 13px; background: rgba(0,0,0,0.03);">System Checking...</div>
   </footer>
 
-  <button class="theme-toggle-fab" id="theme-btn" aria-label="Toggle Theme">
+  <button class="theme-toggle-fab" id="theme-btn">
     <span class="material-icons-outlined">dark_mode</span>
   </button>
 
@@ -356,29 +232,22 @@
       constructor() {
         this.initTheme();
         this.initNavigation();
-        this.initAdblock();
       }
-
       initTheme() {
         const btn = document.getElementById('theme-btn');
         const icon = btn.querySelector('span');
         btn.addEventListener('click', () => {
           const isDark = document.body.classList.toggle('dark-mode');
           icon.textContent = isDark ? 'light_mode' : 'dark_mode';
-          btn.style.transform = 'scale(0.9) rotate(45deg)';
-          setTimeout(() => btn.style.transform = '', 200);
         });
       }
-
       initNavigation() {
         const links = document.querySelectorAll('nav a');
         const contents = document.querySelectorAll('.content-wrapper');
-        
         const update = () => {
           const hash = window.location.hash.slice(1) || 'home';
           contents.forEach(c => c.classList.remove('active'));
           links.forEach(l => l.classList.remove('active'));
-          
           const target = document.getElementById(hash + '-content');
           const link = document.querySelector(`nav a[href="#${hash}"]`);
           if (target && link) {
@@ -386,33 +255,15 @@
             link.classList.add('active');
           }
         };
-
         links.forEach(l => l.addEventListener('click', e => {
           e.preventDefault();
           window.location.hash = l.getAttribute('href');
           update();
         }));
-
         window.addEventListener('popstate', update);
         update();
       }
-
-      initAdblock() {
-        const status = document.getElementById('adblock-status');
-        const ad = document.createElement('div');
-        ad.className = 'ad-banner';
-        ad.style.cssText = 'width:1px;height:1px;position:absolute;left:-999px;';
-        document.body.appendChild(ad);
-        requestAnimationFrame(() => {
-          const blocked = !ad.offsetParent || ad.offsetWidth === 0;
-          status.textContent = 'Protection: ' + (blocked ? 'Shield Active' : 'Shield Standard');
-          status.style.background = blocked ? 'rgba(217, 48, 37, 0.1)' : 'rgba(24, 128, 56, 0.1)';
-          status.style.color = blocked ? '#d93025' : '#188038';
-          ad.remove();
-        });
-      }
     }
-
     window.addEventListener('load', () => new App());
   </script>
 </body>
